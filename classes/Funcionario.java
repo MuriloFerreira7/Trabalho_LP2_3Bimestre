@@ -6,19 +6,20 @@ public class Funcionario extends Pessoa {
 
     private String areaAtuacao;
     private String salario;
-    private ArrayList<Advertencia> advertencias;
+    private ArrayList<Advertencia> advertencias = new ArrayList<>();
 
-    public Funcionario(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento, String areaAtuacao, String salario) {
-        super(nome, cpf, rg, email, telefone, dataDeNascimento);
-        setAreaAtuacao(areaAtuacao);
-        setSalario(salario);
+    public Funcionario(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento, String areaAtuacao, String salario, String necessidadeEspecial, ArrayList<Advertencia> advertencias) {
+        super(nome, cpf, rg, email, telefone, dataDeNascimento, necessidadeEspecial);
+        this.areaAtuacao = areaAtuacao;
+        this.salario = salario;
+        this.advertencias = advertencias;
     }
 
     public ArrayList<Advertencia> getAdvertencias() {
         return advertencias;
     }
 
-    public void addAdvertencias(Advertencia advertencia) {
+    public void addAdvertencia(Advertencia advertencia) {
         this.advertencias.add(advertencia);
     }
 
@@ -35,7 +36,7 @@ public class Funcionario extends Pessoa {
         return areaAtuacao;
     }
 
-    private void setAreaAtuacao(String areaAtuacao) {
+    public void setAreaAtuacao(String areaAtuacao) {
         this.areaAtuacao = areaAtuacao;
     }
 
@@ -43,7 +44,11 @@ public class Funcionario extends Pessoa {
         return salario;
     }
 
-    private void setSalario(String salario) {
+    public void setSalario(String salario) {
         this.salario = salario;
+    }
+
+    public void setAdvertencias(ArrayList<Advertencia> advertencias) {
+        this.advertencias = advertencias;
     }
 }

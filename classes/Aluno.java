@@ -5,18 +5,15 @@ import java.util.ArrayList;
 public class Aluno extends Pessoa {
 
     private String objetivo;
-    private String necessidadeEspecial;
-    private ArrayList<AvaliacaoFisica> avaliacoesFisicas;
-    private ArrayList<Advertencia> advertencias;
+    private ArrayList<AvaliacaoFisica> avaliacoesFisicas = new ArrayList<>();
+    private ArrayList<Advertencia> advertencias = new ArrayList<>();
 
-    public Aluno(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento, String objetivo, String necessidadeEspecial, ArrayList<AvaliacaoFisica> avaliacoesFisicas, ArrayList<Advertencia> advertencias) {
-        super(nome, cpf, rg, email, telefone, dataDeNascimento);
+    public Aluno(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento, String objetivo, String necessidadeEspecial) {
+        super(nome, cpf, rg, email, telefone, dataDeNascimento, necessidadeEspecial);
         this.objetivo = objetivo;
-        this.necessidadeEspecial = necessidadeEspecial;
-        this.advertencias = advertencias;
     }
 
-    public void addAdvertencias(Advertencia advertencia) {
+    public void addAdvertencia(Advertencia advertencia) {
         this.advertencias.add(advertencia);
     }
 
@@ -48,14 +45,6 @@ public class Aluno extends Pessoa {
 
     public void setObjetivo(String objetivo) {
         this.objetivo = objetivo;
-    }
-
-    public String getNecessidadeEspecial() {
-        return necessidadeEspecial;
-    }
-
-    public void setNecessidadeEspecial(String necessidadeEspecial) {
-        this.necessidadeEspecial = necessidadeEspecial;
     }
 
     public ArrayList<AvaliacaoFisica> getAvaliacoesFisicas() {

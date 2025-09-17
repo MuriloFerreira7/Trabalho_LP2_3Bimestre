@@ -13,12 +13,12 @@ public class AvaliacaoFisica {
     private String pescoco;
 
     private String gorduraCorporal;//porcentagem
-    private byte bancoDeWells;//mobilidade(cm)
+    private String bancoDeWells;//mobilidade(cm)
 
     private String altura;
     private String peso;
 
-    public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, byte bancoDeWells, String altura, String peso) {
+    public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, String bancoDeWells, String altura, String peso) {
         this.bracoEsquerdo = bracoEsquerdo;
         this.bracoDireito = bracoDireito;
         this.pernaEsquerda = pernaEsquerda;
@@ -105,11 +105,11 @@ public class AvaliacaoFisica {
         this.gorduraCorporal = gorduraCorporal;
     }
 
-    public byte getBancoDeWells() {
+    public String getBancoDeWells() {
         return bancoDeWells;
     }
 
-    public void setBancoDeWells(byte bancoDeWells) {
+    public void setBancoDeWells(String bancoDeWells) {
         this.bancoDeWells = bancoDeWells;
     }
 

@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class Aparelho {
 
     private String nome;
-    private ArrayList<String> musculosPrincipais;
-    private ArrayList<String> musculosSecundarios;
+    private String conjuntoMuscularAlvo;
+    private ArrayList<String> musculosPrincipais = new ArrayList<>();
+    private ArrayList<String> musculosSecundarios = new ArrayList<>();
     private String nivelDeDificuldade;
 
-    public Aparelho(String nome, ArrayList<String> musculosPrincipais, ArrayList<String> musculosSecundarios, String nivelDeDificuldade) {
+    public Aparelho(String nome, String conjuntoMuscularAlvo, ArrayList<String> musculosPrincipais, ArrayList<String> musculosSecundarios, String nivelDeDificuldade) {
         this.nome = nome;
+        this.conjuntoMuscularAlvo = conjuntoMuscularAlvo;
         this.musculosPrincipais = musculosPrincipais;
         this.musculosSecundarios = musculosSecundarios;
         this.nivelDeDificuldade = nivelDeDificuldade;
@@ -40,11 +42,45 @@ public class Aparelho {
         this.musculosPrincipais = musculosPrincipais;
     }
 
+    public void addMusculoPrincipal(String musculo) {
+        this.musculosPrincipais.add(musculo);
+    }
+
+    public void removeMusculoPrincipal(String musculo) {
+        for (int i = 0; i < this.musculosPrincipais.size(); i++) {
+            if (this.musculosPrincipais.get(i).equals(musculo)) {
+                this.musculosPrincipais.remove(i);
+                break;
+            }
+        }
+    }
+
     public ArrayList<String> getMusculosSegundarios() {
         return musculosSecundarios;
     }
 
-    public void setMusculosSegundarios(ArrayList<String> musculosSegundarios) {
+    public void setMusculosSecundarios(ArrayList<String> musculosSegundarios) {
         this.musculosSecundarios = musculosSegundarios;
+    }
+
+    public void addMusculoSecundario(String musculo) {
+        this.musculosSecundarios.add(musculo);
+    }
+
+    public void removeMusculoSecundario(String musculo) {
+        for (int i = 0; i < this.musculosSecundarios.size(); i++) {
+            if(this.musculosSecundarios.get(i).equals(musculo)) {
+                this.musculosSecundarios.remove(i);
+                break;
+            }
+        }
+    }
+
+    public String getConjuntoMuscularAlvo() {
+        return conjuntoMuscularAlvo;
+    }
+
+    public void setConjuntoMuscularAlvo(String conjuntoMuscularAlvo) {
+        this.conjuntoMuscularAlvo = conjuntoMuscularAlvo;
     }
 }

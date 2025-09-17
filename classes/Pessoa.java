@@ -6,14 +6,16 @@ public class Pessoa {
     private String email;
     private String telefone;
     private String dataDeNascimento;
+    private String necessidadeEspecial;
 
-    public Pessoa(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento) {
+    public Pessoa(String nome, String cpf, String rg, String email, String telefone, String dataDeNascimento, String necessidadeEspecial) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
         this.telefone = telefone;
         this.dataDeNascimento = dataDeNascimento;
+        this.necessidadeEspecial = necessidadeEspecial;
     }
     
     public String getTelefone() {
@@ -53,6 +55,14 @@ public class Pessoa {
 
     public void setDataDeNascimento(String dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public String getNecessidadeEspecial() {
+        return necessidadeEspecial;
+    }
+
+    public void setNecessidadeEspecial(String necessidadeEspecial) {
+        this.necessidadeEspecial = necessidadeEspecial;
     }
     
 }
