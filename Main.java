@@ -15,7 +15,8 @@ public class Main {
         supinoInclinadoComAlteres.addMusculoSecundario("tríceps braquial");
         supinoInclinadoComAlteres.addMusculoSecundario("deltóide anterior");
 
-        academia.buscarAlunoPorNome("Murilo Ferreira").addAdvertencia(new Advertencia("defecar no mictório", "suspensão de 1 semana"));//dando uma advertência para o aluno "Murilo Ferreira"
-        academia.buscarAlunoPorNome("Murilo Ferreira").addAvaliacaoFisica(new AvaliacaoFisica("38cm", "39cm", "67cm", "66cm", "79cm", "80cm", "102cm", "39cm", "12%", "78cm", "176cm", "82kg"));//adicionando uma avaliação física para o aluno Murilo Ferreira
+        Aluno murilo = academia.buscarAlunoPorNome("Murilo Ferreira");
+        murilo.addAdvertencia(new Advertencia("defecar no mictório", "suspensão de 1 semana"));//dando uma advertência para o aluno "Murilo Ferreira"
+        murilo.addAvaliacaoFisica(new AvaliacaoFisica("38cm", "39cm", "67cm", "66cm", "79cm", "80cm", "102cm", "39cm", "12%", "78cm", "176cm", "82kg"));//adicionando uma avaliação física para o aluno Murilo Ferreira
     }
 }
