@@ -1,4 +1,7 @@
+package classes;
+
 public class AvaliacaoFisica {
+
     //medidas (cm)
     private String bracoEsquerdo;
     private String bracoDireito;
@@ -8,85 +11,122 @@ public class AvaliacaoFisica {
     private String abdomen;
     private String busto;
     private String pescoco;
-    
-    private byte gorduraCorporal;//porcentagem
-    private byte BancoDeWells;//mobilidade(cm)
+
+    private String gorduraCorporal;//porcentagem
+    private byte bancoDeWells;//mobilidade(cm)
 
     private String altura;
     private String peso;
-    
+
+    public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, byte bancoDeWells, String altura, String peso) {
+        this.bracoEsquerdo = bracoEsquerdo;
+        this.bracoDireito = bracoDireito;
+        this.pernaEsquerda = pernaEsquerda;
+        this.pernaDireito = pernaDireito;
+        this.cintura = cintura;
+        this.abdomen = abdomen;
+        this.busto = busto;
+        this.pescoco = pescoco;
+        this.gorduraCorporal = gorduraCorporal;
+        this.bancoDeWells = bancoDeWells;
+        this.altura = altura;
+        this.peso = peso;
+    }
+
     public String getBracoEsquerdo() {
         return bracoEsquerdo;
     }
+
     public void setBracoEsquerdo(String bracoEsquerdo) {
         this.bracoEsquerdo = bracoEsquerdo;
     }
+
     public String getBracoDireito() {
         return bracoDireito;
     }
+
     public void setBracoDireito(String bracoDireito) {
         this.bracoDireito = bracoDireito;
     }
+
     public String getPernaEsquerda() {
         return pernaEsquerda;
     }
+
     public void setPernaEsquerda(String pernaEsquerda) {
         this.pernaEsquerda = pernaEsquerda;
     }
+
     public String getPernaDireito() {
         return pernaDireito;
     }
+
     public void setPernaDireito(String pernaDireito) {
         this.pernaDireito = pernaDireito;
     }
+
     public String getCintura() {
         return cintura;
     }
+
     public void setCintura(String cintura) {
         this.cintura = cintura;
     }
+
     public String getAbdomen() {
         return abdomen;
     }
+
     public void setAbdomen(String abdomen) {
         this.abdomen = abdomen;
     }
+
     public String getBusto() {
         return busto;
     }
+
     public void setBusto(String busto) {
         this.busto = busto;
     }
+
     public String getPescoco() {
         return pescoco;
     }
+
     public void setPescoco(String pescoco) {
         this.pescoco = pescoco;
     }
-    public byte getGorduraCorporal() {
+
+    public String getGorduraCorporal() {
         return gorduraCorporal;
     }
-    public void setGorduraCorporal(byte gorduraCorporal) {
+
+    public void setGorduraCorporal(String gorduraCorporal) {
         this.gorduraCorporal = gorduraCorporal;
     }
+
     public byte getBancoDeWells() {
-        return BancoDeWells;
+        return bancoDeWells;
     }
+
     public void setBancoDeWells(byte bancoDeWells) {
-        BancoDeWells = bancoDeWells;
+        this.bancoDeWells = bancoDeWells;
     }
+
     public String getAltura() {
         return altura;
     }
+
     public void setAltura(String altura) {
         this.altura = altura;
     }
+
     public String getPeso() {
         return peso;
     }
+
     public void setPeso(String peso) {
         this.peso = peso;
     }
 
-    
 }
