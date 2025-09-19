@@ -9,33 +9,33 @@ public class Academia {
     private String horarioDeFuncionamento;
     private ArrayList<Aluno> alunos = new ArrayList<>();
     private ArrayList<Funcionario> funcionarios = new ArrayList<>();
-    private ArrayList<Aparelho> aparelhos = new ArrayList<>();
+    private ArrayList<Area> Areas = new ArrayList<>();
 
-    public Academia(String nome, String endereco, String horarioDeFuncionamento, ArrayList<Aluno> alunos, ArrayList<Funcionario> funcionarios, ArrayList<Aparelho> aparelhos) {
+    public Academia(String nome, String endereco, String horarioDeFuncionamento, ArrayList<Aluno> alunos, ArrayList<Funcionario> funcionarios, ArrayList<Area> areas) {
         this.nome = nome;
         this.endereco = endereco;
         this.horarioDeFuncionamento = horarioDeFuncionamento;
         this.alunos = alunos;
         this.funcionarios = funcionarios;
-        this.aparelhos = aparelhos;
+        this.Areas = areas;
     }
 
-    public ArrayList<Aparelho> getAparelhos() {
-        return aparelhos;
+    public ArrayList<Area> getAparelhos() {
+        return Areas;
     }
 
-    public void setAparelhos(ArrayList<Aparelho> aparelhos) {
-        this.aparelhos = aparelhos;
+    public void setAparelhos(ArrayList<Area> aparelhos) {
+        this.Areas = aparelhos;
     }
 
-    public void addAparelho(Aparelho aparelho) {
-        this.aparelhos.add(aparelho);
+    public void addArea(Area aparelho) {
+        this.Areas.add(aparelho);
     }
 
-    public void removeAparelho(Aparelho aparelho) {
-        for (int i = 0; i < this.aparelhos.size(); i++) {
-            if (this.aparelhos.get(i) == aparelho) {
-                this.aparelhos.remove(i);
+    public void removeArea(Area area) {
+        for (int i = 0; i < this.Areas.size(); i++) {
+            if (this.Areas.get(i) == area) {
+                this.Areas.remove(i);
                 break;
             }
         }
@@ -97,9 +97,9 @@ public class Academia {
         return null;
     }
 
-    public Aparelho buscarAparelhoPorNome(String nome) {
-        for (int i = 0; i < this.aparelhos.size(); i++) {
-            if(this.aparelhos.get(i).getNome().equals(nome)) return this.aparelhos.get(i);
+    public Area buscarAreaPorNome(String nome) {
+        for (int i = 0; i < this.Areas.size(); i++) {
+            if (this.Areas.get(i).getNome().equals(nome)) return this.Areas.get(i); 
         }
         return null;
     }

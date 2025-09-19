@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Aparelho {
+public class Exercicio {
 
     private String nome;
     private String conjuntoMuscularAlvo;
@@ -10,7 +10,7 @@ public class Aparelho {
     private ArrayList<String> musculosSecundarios = new ArrayList<>();
     private String nivelDeDificuldade;
 
-    public Aparelho(String nome, String conjuntoMuscularAlvo, ArrayList<String> musculosPrincipais, ArrayList<String> musculosSecundarios, String nivelDeDificuldade) {
+    public Exercicio(String nome, String conjuntoMuscularAlvo, ArrayList<String> musculosPrincipais, ArrayList<String> musculosSecundarios, String nivelDeDificuldade) {
         this.nome = nome;
         this.conjuntoMuscularAlvo = conjuntoMuscularAlvo;
         this.musculosPrincipais = musculosPrincipais;
