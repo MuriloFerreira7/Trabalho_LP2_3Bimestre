@@ -21,7 +21,7 @@ public class AvaliacaoFisica {
     
     private int id;
     
-    public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, String bancoDeWells, String altura, String peso) {
+    public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, String bancoDeWells, String altura, String peso, int id) {
         this.bracoEsquerdo = bracoEsquerdo;
         this.bracoDireito = bracoDireito;
         this.pernaEsquerda = pernaEsquerda;
@@ -34,6 +34,7 @@ public class AvaliacaoFisica {
         this.bancoDeWells = bancoDeWells;
         this.altura = altura;
         this.peso = peso;
+        this.id = id;
     }
 
     public String getBracoEsquerdo() {

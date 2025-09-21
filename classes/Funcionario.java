@@ -23,9 +23,9 @@ public class Funcionario extends Pessoa {
         this.advertencias.add(advertencia);
     }
 
-    public void removeAdvertencias(Advertencia advertencia) {
+    public void removeAdvertencias(int id) {
         for (int i = 0; i < this.advertencias.size(); i++) {
-            if (this.advertencias.get(i) == advertencia) {
+            if (this.advertencias.get(i).getId() == id) {
                 this.advertencias.remove(i);
                 break;
             }

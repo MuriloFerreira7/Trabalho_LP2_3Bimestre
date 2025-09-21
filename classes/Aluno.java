@@ -37,13 +37,20 @@ public class Aluno extends Pessoa {
         this.avaliacoesFisicas.add(avaliacaoFisica);
     }
 
-    public void removeAvaliacaoFisica(AvaliacaoFisica avaliacaoFisica) {
+    public void removeAvaliacaoFisica(int id) {
         for (int i = 0; i < this.advertencias.size(); i++) {
-            if (this.avaliacoesFisicas.get(i) == avaliacaoFisica) {
+            if (this.avaliacoesFisicas.get(i).getId() == id) {
                 this.avaliacoesFisicas.remove(i);
                 break;
             }
         }
+    }
+
+    public AvaliacaoFisica buscarAvaliacaoFisicaPorId(int id) {
+        for(int i = 0; i < avaliacoesFisicas.size(); i++) {
+            if (avaliacoesFisicas.get(i).getId() == id) return avaliacoesFisicas.get(i);
+        }
+        return null;
     }
 
     public String getObjetivo() {
