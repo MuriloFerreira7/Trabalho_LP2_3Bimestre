@@ -17,13 +17,20 @@ public class Aluno extends Pessoa {
         this.advertencias.add(advertencia);
     }
 
-    public void removeAdvertencias(Advertencia advertencia) {
+    public void removeAdvertencias(int id) {
         for (int i = 0; i < this.advertencias.size(); i++) {
-            if (this.advertencias.get(i) == advertencia) {
+            if (this.advertencias.get(i).getId() == id) {
                 this.advertencias.remove(i);
                 break;
             }
         }
+    }
+
+    public Advertencia buscarAdvertenciaPorId(int id) {
+        for(int i = 0; i < advertencias.size(); i++) {
+            if (advertencias.get(i).getId() == id) return advertencias.get(i);
+        }
+        return null;
     }
 
     public void addAvaliacaoFisica(AvaliacaoFisica avaliacaoFisica) {

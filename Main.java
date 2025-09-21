@@ -1,4 +1,5 @@
 //!LER.nextLine() solto no meio do código é para limpar o buffer do teclado.
+//deve ser adicionado uma forma de mudar os atributos de todas as classes
 import classes.*;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -56,17 +57,17 @@ public class Main {
 
     public static void gerenciarAcademia() {
         int id = lerId();
-        System.out.println("O que você deseja fazer?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Registrar exercicio\n5-Gerenciar Aluno\n6-gerenciar funcionário\n7-gerenciar área da academia\n8-gerenciar exercicio");
+        System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
         int caso = LER.nextInt();
         switch (caso) {
             case 1 -> cadastrarAluno(id);
             case 2 -> cadastrarFuncionario(id);
-            // case 3 -> cadastrarArea();
-            // case 4 -> registrarExercicio();
-            // case 5 -> gerenciarAluno();
-            // case 6 -> gerenciarFuncionario();
-            // case 7 -> gerenciarArea();
-            // case 8 -> gerenciarExercicio();
+            case 3 -> cadastrarArea(id);
+            case 4 -> gerenciarAluno(id);
+            // case 5 -> gerenciarFuncionario(id);
+            // case 6 -> gerenciarArea(id);
+            //? case 7 -> gerenciarExercicio(id);
+            //? case 4 -> registrarExercicio(id);
             }
     }
 
@@ -83,6 +84,86 @@ public class Main {
             id = LER.nextInt();
         } while (!academias.containsKey(id));
         return id;
+    }
+
+    public static void gerenciarAluno(int id) {
+        limparTela();
+        System.out.printf("Qual o nome do aluno?:");
+        LER.nextLine();
+        Aluno aluno = academias.get(id).buscarAlunoPorNome(LER.nextLine());
+        limparTela();
+        System.out.printf("O que você deseja gerenciar?\n1-objetivos\n2-avaliações físicas\n3-advertências\n");
+        int caso = LER.nextInt();
+        switch (caso) {
+            case 1 -> gerenciarObjetivos(aluno);
+            // case 2 -> gerenciarAvaliacoesFisicas(aluno);
+            case 3 -> gerenciarAdvertencias(aluno);
+        }
+    }
+
+    public static void gerenciarAvaliacoesFisicas(Aluno aluno) {
+
+    }
+
+    public static void gerenciarAdvertencias(Aluno aluno) {
+        
+        System.out.printf("O que você deseja fazer?\n1-adicionar advertências\n2-remover advertências\n3-editar advertência\n");
+        int caso = LER.nextInt();
+        switch (caso) {
+            case 1 -> adicionarAdvertencia(aluno);
+            case 2 -> removerAdvertencia(aluno);
+            // case 3 -> editarAdvertencia(aluno);
+        }
+    }
+
+    public static void removerAdvertencia(Aluno aluno) {
+        System.out.printf("Qual advertência você deseja remover?(id):");
+        aluno.removeAdvertencias(LER.nextInt());
+    }
+
+    public static void adicionarAdvertencia(Aluno aluno) {
+        limparTela();
+        System.out.printf("id da advertência:");
+        int id = LER.nextInt();
+        limparTela();
+        System.out.printf("motivo da advertência:");
+        LER.nextLine();
+        String motivo = LER.nextLine();
+        limparTela();
+        System.out.printf("penalidade da advertência:");
+        String penalidade = LER.nextLine();
+        limparTela();
+        System.out.printf("data da advertência:");
+        String data = LER.nextLine();
+        limparTela();
+        aluno.addAdvertencia(new Advertencia(id, motivo, penalidade, data));
+        System.out.println("advertência adicionada com sucesso :(");
+    }
+
+    public static void gerenciarObjetivos(Aluno aluno) {
+        limparTela();
+        System.out.printf("O que você deseja fazer?\n1-remover objetivo\n2-alterar objetivo\n");
+        int caso = LER.nextInt();
+        limparTela();
+        switch (caso) {
+            case 1 -> aluno.setObjetivo(null);
+            case 2 -> {
+                System.out.printf("qual é o novo objetivo de %s", aluno.getNome());
+                LER.nextLine();
+                aluno.setObjetivo(LER.nextLine());
+            }
+        }
+        limparTela();
+    }
+
+    public static void cadastrarArea(int id) {
+        limparTela();
+        System.out.printf("qual o nome da área?:");
+        LER.nextLine();
+        String nome = LER.nextLine();
+        limparTela();
+        academias.get(id).addArea(new Area(nome, null));
+        System.out.println("área adicionada com sucesso");
     }
 
     public static void cadastrarFuncionario(int id) {
@@ -143,6 +224,7 @@ public class Main {
         String necessidadeEspecial = verificarNecessidadeEspecial("aluno");
         limparTela();
         System.out.println("objetivo do aluno:");
+        LER.nextLine();
         String objetivo = LER.nextLine();
         limparTela();
         academias.get(id).addAluno(new Aluno(nome, cpf, rg, email, telefone, dataDeNascimento, objetivo, necessidadeEspecial));

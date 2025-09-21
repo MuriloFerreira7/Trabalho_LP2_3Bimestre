@@ -92,7 +92,7 @@ public class Academia {
 
     public Aluno buscarAlunoPorNome(String nome) {
         for (int i = 0; i < this.alunos.size(); i++) {
-            if(this.funcionarios.get(i).getNome().equals(nome)) return this.alunos.get(i);
+            if(this.alunos.get(i).getNome().equals(nome)) return this.alunos.get(i);
         }
         return null;
     }

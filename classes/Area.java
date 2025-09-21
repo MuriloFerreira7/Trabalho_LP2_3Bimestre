@@ -7,7 +7,7 @@ public class Area {
     
     public Area(String nome, ArrayList<Exercicio> exercicios) {
         this.nome = nome; 
-        this.exercicios = exercicios;
+        if(exercicios != null) this.exercicios = exercicios;
     }
 
     public String getNome() {

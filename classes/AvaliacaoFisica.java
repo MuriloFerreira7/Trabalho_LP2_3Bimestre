@@ -2,6 +2,7 @@ package classes;
 
 public class AvaliacaoFisica {
 
+    
     //medidas (cm)
     private String bracoEsquerdo;
     private String bracoDireito;
@@ -11,13 +12,15 @@ public class AvaliacaoFisica {
     private String abdomen;
     private String busto;
     private String pescoco;
-
+    
     private String gorduraCorporal;//porcentagem
     private String bancoDeWells;//mobilidade(cm)
-
+    
     private String altura;
     private String peso;
-
+    
+    private int id;
+    
     public AvaliacaoFisica(String bracoEsquerdo, String bracoDireito, String pernaEsquerda, String pernaDireito, String cintura, String abdomen, String busto, String pescoco, String gorduraCorporal, String bancoDeWells, String altura, String peso) {
         this.bracoEsquerdo = bracoEsquerdo;
         this.bracoDireito = bracoDireito;
@@ -127,6 +130,14 @@ public class AvaliacaoFisica {
 
     public void setPeso(String peso) {
         this.peso = peso;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
