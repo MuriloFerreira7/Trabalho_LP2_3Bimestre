@@ -12,7 +12,7 @@ public class Funcionario extends Pessoa {
         super(nome, cpf, rg, email, telefone, dataDeNascimento, necessidadeEspecial);
         this.areaAtuacao = areaAtuacao;
         this.salario = salario;
-        this.advertencias = advertencias;
+        if(advertencias != null) this.advertencias = advertencias;
     }
 
     public ArrayList<Advertencia> getAdvertencias() {

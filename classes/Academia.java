@@ -9,33 +9,33 @@ public class Academia {
     private String horarioDeFuncionamento;
     private ArrayList<Aluno> alunos = new ArrayList<>();
     private ArrayList<Funcionario> funcionarios = new ArrayList<>();
-    private ArrayList<Area> Areas = new ArrayList<>();
+    private ArrayList<Area> areas = new ArrayList<>();
 
     public Academia(String nome, String endereco, String horarioDeFuncionamento, ArrayList<Aluno> alunos, ArrayList<Funcionario> funcionarios, ArrayList<Area> areas) {
         this.nome = nome;
         this.endereco = endereco;
         this.horarioDeFuncionamento = horarioDeFuncionamento;
-        this.alunos = alunos;
-        this.funcionarios = funcionarios;
-        this.Areas = areas;
+        if(alunos != null) this.alunos = alunos;
+        if(funcionarios != null) this.funcionarios = funcionarios;
+        if(areas != null) this.areas = areas;
     }
 
     public ArrayList<Area> getAparelhos() {
-        return Areas;
+        return areas;
     }
 
     public void setAparelhos(ArrayList<Area> aparelhos) {
-        this.Areas = aparelhos;
+        this.areas = aparelhos;
     }
 
     public void addArea(Area aparelho) {
-        this.Areas.add(aparelho);
+        this.areas.add(aparelho);
     }
 
     public void removeArea(Area area) {
-        for (int i = 0; i < this.Areas.size(); i++) {
-            if (this.Areas.get(i) == area) {
-                this.Areas.remove(i);
+        for (int i = 0; i < this.areas.size(); i++) {
+            if (this.areas.get(i) == area) {
+                this.areas.remove(i);
                 break;
             }
         }
@@ -98,8 +98,8 @@ public class Academia {
     }
 
     public Area buscarAreaPorNome(String nome) {
-        for (int i = 0; i < this.Areas.size(); i++) {
-            if (this.Areas.get(i).getNome().equals(nome)) return this.Areas.get(i); 
+        for (int i = 0; i < this.areas.size(); i++) {
+            if (this.areas.get(i).getNome().equals(nome)) return this.areas.get(i); 
         }
         return null;
     }
