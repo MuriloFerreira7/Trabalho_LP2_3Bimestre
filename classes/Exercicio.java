@@ -13,8 +13,8 @@ public class Exercicio {
     public Exercicio(String nome, String conjuntoMuscularAlvo, ArrayList<String> musculosPrincipais, ArrayList<String> musculosSecundarios, String nivelDeDificuldade) {
         this.nome = nome;
         this.conjuntoMuscularAlvo = conjuntoMuscularAlvo;
-        this.musculosPrincipais = musculosPrincipais;
-        this.musculosSecundarios = musculosSecundarios;
+        if(musculosPrincipais != null)this.musculosPrincipais = musculosPrincipais;
+        if(musculosSecundarios != null) this.musculosSecundarios = musculosSecundarios;
         this.nivelDeDificuldade = nivelDeDificuldade;
     }
 
