@@ -3,7 +3,6 @@
 //deve ser adicionado uma forma de adicionar e remover musculos principais e secundarios dos exercicios
 
 import classes.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -111,7 +110,7 @@ public class Main {
     }
 
     public static void gerenciarAcademia() {
-        int id = lerId();
+        int id = lerId("gerenciar");
         System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
         int caso = LER.nextInt();
         switch (caso) {
@@ -132,7 +131,7 @@ public class Main {
             }
         }
 
-    }
+    
 
     public static void gerenciarArea(int id) {
         limparTela();
