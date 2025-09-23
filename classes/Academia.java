@@ -128,4 +128,12 @@ public class Academia {
         this.horarioDeFuncionamento = horarioDeFuncionamento;
     }
 
+    public ArrayList<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(ArrayList<Area> areas) {
+        this.areas = areas;
+    }
+
 }

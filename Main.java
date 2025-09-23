@@ -2,6 +2,8 @@
 //deve ser adicionado uma forma de mudar os atributos de todas as classes
 
 import classes.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -15,7 +17,8 @@ public class Main {
             System.out.printf("o que você deseja fazer?\n");
             System.out.printf("1-criar uma academia\n");
             System.out.printf("2-gerenciar academia existente\n");
-            System.out.printf("3-fechar\n");
+            System.out.printf("3-consultar academia existente\n");
+            System.out.printf("4-fechar\n");
             int caso = LER.nextInt();
             limparTela();
             switch (caso) {
@@ -23,11 +26,61 @@ public class Main {
                     criarAcademia();
                 case 2 ->
                     gerenciarAcademia();
-                case 3 -> {
+                case 3 ->
+                    consultarAcademia();
+                case 4 -> {
                     return;
                 }
             }
         }
+    }
+
+    public static void consultarAcademia() {
+        limparTela();
+        Academia academia = academias.get(lerId("consultar"));
+        limparTela();
+        System.out.printf("o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n");
+        int caso = LER.nextInt();
+        switch (caso) {
+            case 1 -> consultarAtributos(academia);
+            // case 2 -> consultarAlunos();
+            // case 3 -> consultarFuncionarios();
+            // case 4 -> consultarAreas();
+        }
+    }
+
+    public static void consultarAtributos(Academia academia) {
+        limparTela();
+        ArrayList<Aluno> alunos = academia.getAlunos();
+        ArrayList<Funcionario> funcionarios = academia.getFuncionarios();
+        ArrayList<Area> areas = academia.getAreas();
+        System.out.printf("nome da academia: %s\nendereço da academia: %s\nhorario de funcionamento da academia: %s\nalunos: ", academia.getNome(), academia.getEndereco(), academia.getHorarioDeFuncionamento());
+        for (int i = 0; i < alunos.size(); i++) {
+            if (i != alunos.size()-1) {
+                System.out.printf("%s, ", alunos.get(i).getNome());
+            } else {
+                System.out.printf("%s", alunos.get(i).getNome());
+            }
+        }
+        System.out.printf("\nfuncionários: ");
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if(i != funcionarios.size()-1) {
+                System.out.printf("%s, ", funcionarios.get(i).getNome());
+            } else {
+                System.out.printf("%s", alunos.get(i).getNome());
+            }
+        }
+        System.out.printf("\nÁreas: ");
+        for (int i = 0; i < areas.size(); i++) {
+            if (i != areas.size()-1) {
+                System.out.printf("%s, ", areas.get(i).getNome());
+            } else {
+                System.out.printf("%s", areas.get(i).getNome());
+            }
+        }
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
     }
 
     public static void criarAcademia() {
@@ -57,7 +110,7 @@ public class Main {
     }
 
     public static void gerenciarAcademia() {
-        int id = lerId();
+        int id = lerId("gerenciar");
         System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
         int caso = LER.nextInt();
         switch (caso) {
@@ -321,13 +374,13 @@ public class Main {
         limparTela();
     }
 
-    public static int lerId() {
+    public static int lerId(String oq) {
         int id;
         boolean primeiraVez = true;
         do {
             if (primeiraVez) {
                 primeiraVez = false;
-                System.out.printf("qual academia você deseja gerenciar?(id):");
+                System.out.printf("qual academia você deseja %s?(id):", oq);
             } else {
                 System.out.printf("essa academia não existe! tente novamente:");
             }
@@ -557,7 +610,6 @@ public class Main {
         String necessidadeEspecial = verificarNecessidadeEspecial("funcionário");
         limparTela();
         System.out.printf("area de atuação do funcionário:");
-        LER.nextLine();
         String areaAtuacao = LER.nextLine();
         limparTela();
         System.out.printf("salário do funcionário:");
@@ -591,7 +643,6 @@ public class Main {
         String necessidadeEspecial = verificarNecessidadeEspecial("aluno");
         limparTela();
         System.out.printf("objetivo do aluno:");
-        LER.nextLine();
         String objetivo = LER.nextLine();
         limparTela();
         academias.get(id).addAluno(new Aluno(nome, cpf, rg, email, telefone, dataDeNascimento, objetivo, necessidadeEspecial));
