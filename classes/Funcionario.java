@@ -15,6 +15,13 @@ public class Funcionario extends Pessoa {
         if(advertencias != null) this.advertencias = advertencias;
     }
 
+    public Advertencia buscarAdvertenciaPorId(int id) {
+        for(int i = 0; i < advertencias.size(); i++) {
+            if (this.advertencias.get(i).getId() == id) return this.advertencias.get(i);
+        }
+        return null;
+    }
+
     public ArrayList<Advertencia> getAdvertencias() {
         return advertencias;
     }

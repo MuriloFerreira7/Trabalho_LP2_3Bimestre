@@ -40,15 +40,18 @@ public class Main {
         Academia academia = academias.get(lerId("consultar"));
         limparTela();
         while (true) {
-            System.out.printf("o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n5-fechar\n");
+            System.out.printf(
+                    "o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n5-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
                     consultarAtributos(academia);
                 case 2 ->
                     consultarAluno(academia);
-                // case 3 -> consultarFuncionarios();
-                // case 4 -> consultarAreas();
+                case 3 ->
+                    consultarFuncionario(academia);
+                case 4 ->
+                    consultarArea(academia);
                 case 5 -> {
                     limparTela();
                     return;
@@ -57,12 +60,125 @@ public class Main {
         }
     }
 
+    public static void consultarArea(Academia academia) {
+        limparTela();
+        Area area = buscarArea(academia, "consultar");
+        limparTela();
+        while (true) {
+            System.out.printf("o que você deseja consultar?\n1-atributos\n2-exercicios\n3-fechar\n");
+            int caso = LER.nextInt();
+            switch (caso) {
+                case 1 -> consultarAtributos(area);
+                case 2 -> consultarExercicios(area);
+                case 3 -> {
+                    limparTela();
+                    return;
+                }
+            }
+        }
+    }
+
+    public static void consultarExercicios(Area area) {
+        limparTela();
+        Exercicio exercicio = buscarExercicio(area);
+        limparTela();
+        System.out.printf("nome: %s\nconjunto muscular alvo: %s\nnível de dificuldade: %s\nmusculos principais: ",
+                exercicio.getNome(), exercicio.getConjuntoMuscularAlvo(), exercicio.getNivelDedificuldade());
+        ArrayList<String> musculosPrincipais = exercicio.getMusculosPrincipais();
+        ArrayList<String> musculosSecundarios = exercicio.getMusculosSegundarios();
+        for (int i = 0; i < musculosPrincipais.size(); i++) {
+            if (i != musculosPrincipais.size()-1) {
+                System.out.printf("%s, ", musculosPrincipais.get(i));
+            } else {
+                System.out.printf("%s\n", musculosPrincipais.get(i));
+            }
+        }
+        System.out.print("musculos secundários: ");
+        for (int i = 0; i < musculosSecundarios.size(); i++) {
+            if (i != musculosSecundarios.size()-1) {
+                System.out.printf("%s, ", musculosSecundarios.get(i));
+            } else {
+                System.out.printf("%s\n", musculosSecundarios.get(i));
+            }
+        }
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
+
+    }
+
+    public static Exercicio buscarExercicio(Area area) {
+        System.out.printf("qual o nome do exercicio?:");
+        LER.nextLine();
+        String nome;
+        boolean primeiraVez = true;
+        do {
+            if (primeiraVez) {
+                primeiraVez = false;
+            } else {
+                System.out.printf("exercício não existe, tente novamente:");
+            }
+            nome = LER.nextLine();
+        } while (area.procurarExercicioPorNome(nome) == null);
+        return area.procurarExercicioPorNome(nome);
+    }
+
+    public static void consultarAtributos(Area area) {
+        limparTela();
+        ArrayList<Exercicio> exercicios = area.getExercicios();
+        System.out.printf("informações\nnome da área: %s\nexercícios: ", area.getNome());
+        for (int i = 0; i < exercicios.size(); i++) {
+            if (i != exercicios.size()-1) {
+                System.out.printf("%s, ", exercicios.get(i).getNome());
+            } else {
+                System.out.printf("%s", exercicios.get(i).getNome());
+            }
+        }
+
+    }
+
+    public static void consultarFuncionario(Academia academia) {
+        limparTela();
+        Funcionario funcionario = buscarFuncionario(academia);
+        limparTela();
+        while (true) {
+            System.out.printf("o que você deseja consultar?\n1-consultar Atributos\n2-advertências\n3-fechar\n");
+            int caso = LER.nextInt();
+            switch (caso) {
+                case 1 -> consultarAtributos(funcionario);
+                case 2 -> consultarAdvertencia(funcionario);
+                case 3 -> {
+                    limparTela();
+                    return;
+                }
+            }
+        }
+
+    }
+
+    public static void consultarAtributos(Funcionario funcionario) {
+        limparTela();
+        System.out.printf(
+                "dados do funcionário\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n",
+                funcionario.getNome(), funcionario.getCpf(), funcionario.getRg(), funcionario.getEmail(),
+                funcionario.getTelefone(),
+                funcionario.getDataDeNascimento());
+        if (funcionario.getNecessidadeEspecial() != null) {
+            System.out.printf("necessidade especial:%s\n", funcionario.getNecessidadeEspecial());
+        }
+        System.out.printf("area de atuação: %s\nsalário: %s", funcionario.getAreaAtuacao(), funcionario.getSalario());
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
+    }
+
     public static void consultarAluno(Academia academia) {
         limparTela();
         Aluno aluno = buscarAluno(academia);
         limparTela();
         while (true) {
-            System.out.printf("o que você deseja fazer?\n1-consultar atributos\n2-consultar avaliações físicas\n3-consultar advertências\n4-fechar\n");
+            System.out.printf(
+                    "o que você deseja fazer?\n1-consultar atributos\n2-consultar avaliações físicas\n3-consultar advertências\n4-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
@@ -77,6 +193,17 @@ public class Main {
                 }
             }
         }
+    }
+
+    public static void consultarAdvertencia(Funcionario funcionario) {
+        limparTela();
+        Advertencia advertencia = buscarAdvertencia(funcionario);
+        limparTela();
+        System.out.printf("informações da advertência de %s\nmotivo: %s\npenalidade: %s\ndata: %s\n",
+                funcionario.getNome(), advertencia.getMotivo(), advertencia.getPenalidade(), advertencia.getData());
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
     }
 
     public static void consultarAdvertencia(Aluno aluno) {
@@ -106,12 +233,32 @@ public class Main {
         return aluno.buscarAdvertenciaPorId(id);
     }
 
+    public static Advertencia buscarAdvertencia(Funcionario funcionario) {
+        System.out.printf("qual o id da advertência?:");
+        LER.nextLine();
+        int id;
+        boolean primeiraVez = true;
+        do {
+            if (primeiraVez) {
+                primeiraVez = false;
+            } else {
+                System.out.printf("advertência não existe, tente novamente:");
+            }
+            id = LER.nextInt();
+        } while (funcionario.buscarAdvertenciaPorId(id) == null);
+        return funcionario.buscarAdvertenciaPorId(id);
+    }
+
     public static void consultarAvaliacaoFisica(Aluno aluno) {
         limparTela();
         AvaliacaoFisica avaliacao = buscarAvaliacaoFisica(aluno);
         limparTela();
-        System.out.printf("avaliação física de %s\nbraço esquerdo: %s\nbraço direito: %s\nperna esquerda: %s\nperna direita: %s\ncintura: %s\nabdômen: %s\nbusto: %s\npescoço: %s\ngordura corporal: %s\nbanco de wells: %s\naltura: %s\npeso: %s\n",
-                aluno.getNome(), avaliacao.getBracoEsquerdo(), avaliacao.getBracoDireito(), avaliacao.getPernaEsquerda(), avaliacao.getPernaDireito(), avaliacao.getCintura(), avaliacao.getAbdomen(), avaliacao.getBusto(), avaliacao.getPescoco(), avaliacao.getGorduraCorporal(), avaliacao.getBancoDeWells(), avaliacao.getAltura(), avaliacao.getPeso());
+        System.out.printf(
+                "avaliação física de %s\nbraço esquerdo: %s\nbraço direito: %s\nperna esquerda: %s\nperna direita: %s\ncintura: %s\nabdômen: %s\nbusto: %s\npescoço: %s\ngordura corporal: %s\nbanco de wells: %s\naltura: %s\npeso: %s\n",
+                aluno.getNome(), avaliacao.getBracoEsquerdo(), avaliacao.getBracoDireito(),
+                avaliacao.getPernaEsquerda(), avaliacao.getPernaDireito(), avaliacao.getCintura(),
+                avaliacao.getAbdomen(), avaliacao.getBusto(), avaliacao.getPescoco(), avaliacao.getGorduraCorporal(),
+                avaliacao.getBancoDeWells(), avaliacao.getAltura(), avaliacao.getPeso());
         LER.nextLine();
         LER.nextLine();
         limparTela();
@@ -135,7 +282,9 @@ public class Main {
 
     public static void consultarAtributos(Aluno aluno) {
         limparTela();
-        System.out.printf("dados do aluno\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n", aluno.getNome(), aluno.getCpf(), aluno.getRg(), aluno.getEmail(), aluno.getTelefone(), aluno.getDataDeNascimento());
+        System.out.printf("dados do aluno\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n",
+                aluno.getNome(), aluno.getCpf(), aluno.getRg(), aluno.getEmail(), aluno.getTelefone(),
+                aluno.getDataDeNascimento());
         if (aluno.getNecessidadeEspecial() != null) {
             System.out.printf("necessidade especial:%s\n", aluno.getNecessidadeEspecial());
         }
@@ -150,7 +299,9 @@ public class Main {
         ArrayList<Aluno> alunos = academia.getAlunos();
         ArrayList<Funcionario> funcionarios = academia.getFuncionarios();
         ArrayList<Area> areas = academia.getAreas();
-        System.out.printf("nome da academia: %s\nendereço da academia: %s\nhorario de funcionamento da academia: %s\nalunos: ", academia.getNome(), academia.getEndereco(), academia.getHorarioDeFuncionamento());
+        System.out.printf(
+                "nome da academia: %s\nendereço da academia: %s\nhorario de funcionamento da academia: %s\nalunos: ",
+                academia.getNome(), academia.getEndereco(), academia.getHorarioDeFuncionamento());
         for (int i = 0; i < alunos.size(); i++) {
             if (i != alunos.size() - 1) {
                 System.out.printf("%s, ", alunos.get(i).getNome());
@@ -163,7 +314,7 @@ public class Main {
             if (i != funcionarios.size() - 1) {
                 System.out.printf("%s, ", funcionarios.get(i).getNome());
             } else {
-                System.out.printf("%s", alunos.get(i).getNome());
+                System.out.printf("%s", funcionarios.get(i).getNome());
             }
         }
         System.out.printf("\nÁreas: ");
@@ -208,7 +359,9 @@ public class Main {
     public static void gerenciarAcademia() {
         int id = lerId("gerenciar");
         while (true) {
-            System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
+            System.out.printf(
+                    "O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n7-fechar\n",
+                    academias.get(id).getNome());
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
@@ -234,10 +387,11 @@ public class Main {
 
     public static void gerenciarArea(int id) {
         limparTela();
-        Area area = buscarArea(id);
+        Area area = buscarArea(academias.get(id), "gerenciar");
         limparTela();
         while (true) {
-            System.out.printf("o que você deseja gerenciar na área %s\n1-nome\n2-exercícios\n3-fechar\n", area.getNome());
+            System.out.printf("o que você deseja gerenciar na área %s\n1-nome\n2-exercícios\n3-fechar\n",
+                    area.getNome());
             int caso = LER.nextInt();
             limparTela();
             switch (caso) {
@@ -438,8 +592,8 @@ public class Main {
         area.setNome(LER.nextLine());
     }
 
-    public static Area buscarArea(int id) {
-        System.out.printf("qual área você deseja gerenciar:");
+    public static Area buscarArea(Academia academia, String oq) {
+        System.out.printf("qual área você deseja %s:", oq);
         LER.nextLine();
         String nome;
         boolean primeiraVez = true;
@@ -450,13 +604,13 @@ public class Main {
                 System.out.printf("área não existe, tente novamente:");
             }
             nome = LER.nextLine();
-        } while (academias.get(id).buscarAreaPorNome(nome) == null);
-        return academias.get(id).buscarAreaPorNome(nome);
+        } while (academia.buscarAreaPorNome(nome) == null);
+        return academia.buscarAreaPorNome(nome);
     }
 
     public static void gerenciarFuncionario(int id) {
         limparTela();
-        Funcionario funcionario = buscarFuncionario(id);
+        Funcionario funcionario = buscarFuncionario(academias.get(id));
         limparTela();
         while (true) {
             limparTela();
@@ -479,7 +633,7 @@ public class Main {
 
     }
 
-    public static Funcionario buscarFuncionario(int id) {
+    public static Funcionario buscarFuncionario(Academia academia) {
         System.out.printf("qual o nome do funcionário?:");
         LER.nextLine();
         String nome;
@@ -491,8 +645,8 @@ public class Main {
                 System.out.printf("funcionário não existe, tente novamente:");
             }
             nome = LER.nextLine();
-        } while (academias.get(id).buscarFuncionarioPorNome(nome) == null);
-        return academias.get(id).buscarFuncionarioPorNome(nome);
+        } while (academia.buscarFuncionarioPorNome(nome) == null);
+        return academia.buscarFuncionarioPorNome(nome);
     }
 
     public static void gerenciarSalario(Funcionario funcionario) {

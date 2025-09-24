@@ -28,7 +28,7 @@ public class Aluno extends Pessoa {
 
     public Advertencia buscarAdvertenciaPorId(int id) {
         for(int i = 0; i < advertencias.size(); i++) {
-            if (advertencias.get(i).getId() == id) return advertencias.get(i);
+            if (this.advertencias.get(i).getId() == id) return this.advertencias.get(i);
         }
         return null;
     }
