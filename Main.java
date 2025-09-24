@@ -39,14 +39,110 @@ public class Main {
         limparTela();
         Academia academia = academias.get(lerId("consultar"));
         limparTela();
-        System.out.printf("o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n");
-        int caso = LER.nextInt();
-        switch (caso) {
-            case 1 -> consultarAtributos(academia);
-            // case 2 -> consultarAlunos();
-            // case 3 -> consultarFuncionarios();
-            // case 4 -> consultarAreas();
+        while (true) {
+            System.out.printf("o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n5-fechar\n");
+            int caso = LER.nextInt();
+            switch (caso) {
+                case 1 ->
+                    consultarAtributos(academia);
+                case 2 ->
+                    consultarAluno(academia);
+                // case 3 -> consultarFuncionarios();
+                // case 4 -> consultarAreas();
+                case 5 -> {
+                    limparTela();
+                    return;
+                }
+            }
         }
+    }
+
+    public static void consultarAluno(Academia academia) {
+        limparTela();
+        Aluno aluno = buscarAluno(academia);
+        limparTela();
+        while (true) {
+            System.out.printf("o que você deseja fazer?\n1-consultar atributos\n2-consultar avaliações físicas\n3-consultar advertências\n4-fechar\n");
+            int caso = LER.nextInt();
+            switch (caso) {
+                case 1 ->
+                    consultarAtributos(aluno);
+                case 2 ->
+                    consultarAvaliacaoFisica(aluno);
+                case 3 ->
+                    consultarAdvertencia(aluno);
+                case 4 -> {
+                    limparTela();
+                    return;
+                }
+            }
+        }
+    }
+
+    public static void consultarAdvertencia(Aluno aluno) {
+        limparTela();
+        Advertencia advertencia = buscarAdvertencia(aluno);
+        limparTela();
+        System.out.printf("informações da advertência de %s\nmotivo: %s\npenalidade: %s\ndata: %s\n",
+                aluno.getNome(), advertencia.getMotivo(), advertencia.getPenalidade(), advertencia.getData());
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
+    }
+
+    public static Advertencia buscarAdvertencia(Aluno aluno) {
+        System.out.printf("qual o id da advertência?:");
+        LER.nextLine();
+        int id;
+        boolean primeiraVez = true;
+        do {
+            if (primeiraVez) {
+                primeiraVez = false;
+            } else {
+                System.out.printf("advertência não existe, tente novamente:");
+            }
+            id = LER.nextInt();
+        } while (aluno.buscarAdvertenciaPorId(id) == null);
+        return aluno.buscarAdvertenciaPorId(id);
+    }
+
+    public static void consultarAvaliacaoFisica(Aluno aluno) {
+        limparTela();
+        AvaliacaoFisica avaliacao = buscarAvaliacaoFisica(aluno);
+        limparTela();
+        System.out.printf("avaliação física de %s\nbraço esquerdo: %s\nbraço direito: %s\nperna esquerda: %s\nperna direita: %s\ncintura: %s\nabdômen: %s\nbusto: %s\npescoço: %s\ngordura corporal: %s\nbanco de wells: %s\naltura: %s\npeso: %s\n",
+                aluno.getNome(), avaliacao.getBracoEsquerdo(), avaliacao.getBracoDireito(), avaliacao.getPernaEsquerda(), avaliacao.getPernaDireito(), avaliacao.getCintura(), avaliacao.getAbdomen(), avaliacao.getBusto(), avaliacao.getPescoco(), avaliacao.getGorduraCorporal(), avaliacao.getBancoDeWells(), avaliacao.getAltura(), avaliacao.getPeso());
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
+    }
+
+    public static AvaliacaoFisica buscarAvaliacaoFisica(Aluno aluno) {
+        System.out.printf("qual o id da avaliação física?:");
+        LER.nextLine();
+        int id;
+        boolean primeiraVez = true;
+        do {
+            if (primeiraVez) {
+                primeiraVez = false;
+            } else {
+                System.out.printf("avaliação física não existe, tente novamente:");
+            }
+            id = LER.nextInt();
+        } while (aluno.buscarAvaliacaoFisicaPorId(id) == null);
+        return aluno.buscarAvaliacaoFisicaPorId(id);
+    }
+
+    public static void consultarAtributos(Aluno aluno) {
+        limparTela();
+        System.out.printf("dados do aluno\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n", aluno.getNome(), aluno.getCpf(), aluno.getRg(), aluno.getEmail(), aluno.getTelefone(), aluno.getDataDeNascimento());
+        if (aluno.getNecessidadeEspecial() != null) {
+            System.out.printf("necessidade especial:%s\n", aluno.getNecessidadeEspecial());
+        }
+        System.out.printf("objetivo:%s\n", aluno.getObjetivo());
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
     }
 
     public static void consultarAtributos(Academia academia) {
@@ -56,7 +152,7 @@ public class Main {
         ArrayList<Area> areas = academia.getAreas();
         System.out.printf("nome da academia: %s\nendereço da academia: %s\nhorario de funcionamento da academia: %s\nalunos: ", academia.getNome(), academia.getEndereco(), academia.getHorarioDeFuncionamento());
         for (int i = 0; i < alunos.size(); i++) {
-            if (i != alunos.size()-1) {
+            if (i != alunos.size() - 1) {
                 System.out.printf("%s, ", alunos.get(i).getNome());
             } else {
                 System.out.printf("%s", alunos.get(i).getNome());
@@ -64,7 +160,7 @@ public class Main {
         }
         System.out.printf("\nfuncionários: ");
         for (int i = 0; i < funcionarios.size(); i++) {
-            if(i != funcionarios.size()-1) {
+            if (i != funcionarios.size() - 1) {
                 System.out.printf("%s, ", funcionarios.get(i).getNome());
             } else {
                 System.out.printf("%s", alunos.get(i).getNome());
@@ -72,7 +168,7 @@ public class Main {
         }
         System.out.printf("\nÁreas: ");
         for (int i = 0; i < areas.size(); i++) {
-            if (i != areas.size()-1) {
+            if (i != areas.size() - 1) {
                 System.out.printf("%s, ", areas.get(i).getNome());
             } else {
                 System.out.printf("%s", areas.get(i).getNome());
@@ -111,27 +207,30 @@ public class Main {
 
     public static void gerenciarAcademia() {
         int id = lerId("gerenciar");
-        System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
-        int caso = LER.nextInt();
-        switch (caso) {
-            case 1 ->
-                cadastrarAluno(id);
-            case 2 ->
-                cadastrarFuncionario(id);
-            case 3 ->
-                cadastrarArea(id);
-            case 4 ->
-                gerenciarAluno(id);
-            case 5 ->
-                gerenciarFuncionario(id);
-            case 6 ->
-                gerenciarArea(id);
-            //? case 7 -> gerenciarExercicio(id);
-            //? case 4 -> registrarExercicio(id);
+        while (true) {
+            System.out.printf("O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n", academias.get(id).getNome());
+            int caso = LER.nextInt();
+            switch (caso) {
+                case 1 ->
+                    cadastrarAluno(id);
+                case 2 ->
+                    cadastrarFuncionario(id);
+                case 3 ->
+                    cadastrarArea(id);
+                case 4 ->
+                    gerenciarAluno(id);
+                case 5 ->
+                    gerenciarFuncionario(id);
+                case 6 ->
+                    gerenciarArea(id);
+                case 7 -> {
+                    limparTela();
+                    return;
+                }
             }
         }
 
-    
+    }
 
     public static void gerenciarArea(int id) {
         limparTela();
@@ -298,7 +397,8 @@ public class Main {
                     adicionarExercicio(area);
                 case 2 ->
                     removerExercicio(area);
-                case 3 -> gerenciarExercicio(area);
+                case 3 ->
+                    gerenciarExercicio(area);
                 case 4 -> {
                     limparTela();
                     return;
@@ -461,12 +561,12 @@ public class Main {
 
     public static void gerenciarAluno(int id) {
         limparTela();
-        Aluno aluno = buscarAluno(id);
+        Aluno aluno = buscarAluno(academias.get(id));
         limparTela();
         while (true) {
             limparTela();
             System.out.printf(
-                    "O que você deseja gerenciar?\n1-objetivos\n2-avaliações físicas\n3-advertências\n4-fechar");
+                    "O que você deseja gerenciar?\n1-objetivos\n2-avaliações físicas\n3-advertências\n4-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
@@ -484,7 +584,7 @@ public class Main {
 
     }
 
-    public static Aluno buscarAluno(int id) {
+    public static Aluno buscarAluno(Academia academia) {
         System.out.printf("qual o nome do aluno?:");
         LER.nextLine();
         String nome;
@@ -496,8 +596,8 @@ public class Main {
                 System.out.printf("aluno não existe, tente novamente:");
             }
             nome = LER.nextLine();
-        } while (academias.get(id).buscarAlunoPorNome(nome) == null);
-        return academias.get(id).buscarAlunoPorNome(nome);
+        } while (academia.buscarAlunoPorNome(nome) == null);
+        return academia.buscarAlunoPorNome(nome);
     }
 
     public static void gerenciarAvaliacoesFisicas(Aluno aluno) {
@@ -756,6 +856,7 @@ public class Main {
         String necessidadeEspecial = verificarNecessidadeEspecial("aluno");
         limparTela();
         System.out.printf("objetivo do aluno:");
+        LER.nextLine();
         String objetivo = LER.nextLine();
         limparTela();
         academias.get(id)
