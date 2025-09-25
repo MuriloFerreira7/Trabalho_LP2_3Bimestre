@@ -1,6 +1,5 @@
 //!LER.nextLine() solto no meio do código é para limpar o buffer do teclado.
 //deve ser adicionado uma forma de mudar os atributos de todas as classes
-//deve ser adicionado uma forma de adicionar e remover musculos principais e secundarios dos exercicios
 
 import classes.*;
 import java.util.ArrayList;
