@@ -10,14 +10,14 @@ public class Main {
 
     final static Scanner LER = new Scanner(System.in);
     static HashMap<Integer, Academia> academias = new HashMap<>();
-
     public static void main(String[] args) {
         while (true) {
             System.out.printf("o que você deseja fazer?\n");
             System.out.printf("1-criar uma academia\n");
             System.out.printf("2-gerenciar academia existente\n");
             System.out.printf("3-consultar academia existente\n");
-            System.out.printf("4-fechar\n");
+            System.out.printf("4-mostrar academias existentes\n");
+            System.out.printf("5-fechar\n");
             int caso = LER.nextInt();
             limparTela();
             switch (caso) {
@@ -27,14 +27,33 @@ public class Main {
                     gerenciarAcademia();
                 case 3 ->
                     consultarAcademia();
-                case 4 -> {
+                case 4 -> 
+                    mostrarAcademiasExistentes();
+                case 5 -> {
                     return;
                 }
             }
         }
     }
 
+    public static void mostrarAcademiasExistentes() {
+        if (academias.isEmpty()) {
+            System.out.println("Cadastre uma academia antes!");
+            return;
+        }
+        for (Integer chave : academias.keySet()) {
+            System.out.printf("id: %d nome: %s\n", chave, academias.get(chave).getNome());
+        }
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
+    }
+
     public static void consultarAcademia() {
+        if (academias.isEmpty()) {
+            System.out.println("Cadastre uma academia antes!");
+            return;
+        }
         limparTela();
         Academia academia = academias.get(lerId("consultar"));
         limparTela();
@@ -356,6 +375,11 @@ public class Main {
     }
 
     public static void gerenciarAcademia() {
+        if (academias.isEmpty()) {
+            limparTela();
+            System.out.println("Cadastre uma academia antes!");
+            return;
+        }
         int id = lerId("gerenciar");
         while (true) {
             System.out.printf(
@@ -385,6 +409,11 @@ public class Main {
     }
 
     public static void gerenciarArea(int id) {
+        if(academias.get(id).getAreas().isEmpty()) {
+            limparTela();
+            System.out.println("cadastre uma área primeiro!");
+            return;
+        }
         limparTela();
         Area area = buscarArea(academias.get(id), "gerenciar");
         limparTela();
@@ -408,6 +437,11 @@ public class Main {
     }
 
     public static void gerenciarExercicio(Area area) {
+        if (area.getExercicios().isEmpty()) {
+            limparTela();
+            System.out.println("essa área não contem exercícios");
+            return;
+        }
         limparTela();
         System.out.printf("qual exercício você deseja gerenciar?:");
         LER.nextLine();
@@ -608,6 +642,11 @@ public class Main {
     }
 
     public static void gerenciarFuncionario(int id) {
+        if (academias.get(id).getFuncionarios().isEmpty()) {
+            limparTela();
+            System.out.println("cadastre um funcionário antes!");
+            return;
+        }
         limparTela();
         Funcionario funcionario = buscarFuncionario(academias.get(id));
         limparTela();
@@ -713,6 +752,12 @@ public class Main {
     }
 
     public static void gerenciarAluno(int id) {
+        
+        if (academias.get(id).getAlunos().isEmpty()) {
+            limparTela();
+            System.out.println("cadastre um aluno primeiro!");
+            return;
+        }
         limparTela();
         Aluno aluno = buscarAluno(academias.get(id));
         limparTela();
@@ -830,7 +875,7 @@ public class Main {
         while (true) {
             limparTela();
             System.out.printf(
-                    "O que você deseja fazer?\n1-adicionar advertências\n2-remover advertências\n3-editar advertência\n4-fechar\n");
+                    "O que você deseja fazer?\n1-adicionar advertências\n2-remover advertências\n3-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
@@ -838,7 +883,7 @@ public class Main {
                 case 2 ->
                     removerAdvertencia(funcionario);
                 // case 3 -> editarAdvertencia(aluno);
-                case 4 -> {
+                case 3 -> {
                     limparTela();
                     return;
                 }
