@@ -373,7 +373,9 @@ public class Main {
     }
 
     public static void criarAcademia() {
-        int id = lerId("criar");
+        System.out.printf("id único da academia:");
+        int id = LER.nextInt();
+        LER.nextLine();
         String nome = lerCampoObrigatorio("Nome da academia:");
         limparTela();
         String endereco = lerCampoObrigatorio("endereço da academia:");
@@ -385,7 +387,6 @@ public class Main {
 
     public static String lerCampoObrigatorio(String mensagem) {
         String valor = "";
-        LER.nextLine();
         do {
             System.out.print(mensagem);
             valor = LER.nextLine();
@@ -1085,7 +1086,6 @@ public class Main {
         String necessidadeEspecial = verificarNecessidadeEspecial("aluno");
         limparTela();
         System.out.printf("objetivo do aluno:");
-        LER.nextLine();
         String objetivo = LER.nextLine();
         limparTela();
         academias.get(id)
