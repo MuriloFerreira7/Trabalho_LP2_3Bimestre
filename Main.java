@@ -607,7 +607,7 @@ public class Main {
             limparTela();
             System.out.printf(
                     "o que deseja fazer?\n1-adicionar exercício\n2-remover exercício\n3-gerenciar exercício\n4-fechar\n");
-            int caso = lerOpcaoMenu(1, 4);
+            int caso = lerOpcaoMenu(1, 7);
             switch (caso) {
                 case 1 ->
                     adicionarExercicio(area);
@@ -621,7 +621,6 @@ public class Main {
                 }
             }
         }
-
     }
 
     public static void removerExercicio(Area area) {
@@ -1119,6 +1118,7 @@ public class Main {
             necessidadeEspecial = LER.nextLine();
         } else {
             necessidadeEspecial = null;
+            LER.nextLine();
         }
         return necessidadeEspecial;
     }
