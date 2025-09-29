@@ -1062,7 +1062,7 @@ public class Main {
         }
         String necessidadeEspecial;
         if (temNecessidade) {
-            System.out.println("necessidade especial do aluno:");
+            System.out.printf("necessidade especial do %:", pessoa);
             LER.nextLine();
             necessidadeEspecial = LER.nextLine();
         } else {
