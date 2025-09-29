@@ -183,7 +183,9 @@ public class Main {
                 System.out.printf("%s", exercicios.get(i).getNome());
             }
         }
-
+        LER.nextLine();
+        LER.nextLine();
+        limparTela();
     }
 
     public static void consultarFuncionario(Academia academia) {
