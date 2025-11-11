@@ -1,5 +1,3 @@
-package classes;
-
 public class Advertencia {
 
     private int id;

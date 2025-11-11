@@ -1,6 +1,5 @@
 //!LER.nextLine() solto no meio do código é para limpar o buffer do teclado.
 
-import classes.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -19,16 +18,16 @@ public class Main {
             System.out.printf("4-mostrar academias existentes\n");
             System.out.printf("5-fechar\n");
             int caso = lerOpcaoMenu(1, 5);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
-                    criarAcademia();
+                    academias = CRUD.criarAcademia(academias);
                 case 2 ->
                     gerenciarAcademia();
                 case 3 ->
                     consultarAcademia();
                 case 4 ->
-                    mostrarAcademiasExistentes();
+                    CRUD.mostrarAcademiasExistentes(academias);
                 case 5 -> {
                     return;
                 }
@@ -56,27 +55,14 @@ public class Main {
         return opcao;
     }
 
-    public static void mostrarAcademiasExistentes() {
-        if (academias.isEmpty()) {
-            System.out.println("Cadastre uma academia antes!");
-            return;
-        }
-        for (Integer chave : academias.keySet()) {
-            System.out.printf("id: %d | nome: %s\n", chave, academias.get(chave).getNome());
-        }
-        LER.nextLine();
-        LER.nextLine();
-        limparTela();
-    }
-
     public static void consultarAcademia() {
         if (academias.isEmpty()) {
             System.out.println("Cadastre uma academia antes!");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         Academia academia = academias.get(lerId("consultar"));
-        limparTela();
+        CRUD.limparTela();
         while (true) {
             System.out.printf(
                     "o que deseja consultar?\n1-atributos da academia\n2-alunos\n3-funcionários\n4-áreas\n5-fechar\n");
@@ -91,7 +77,7 @@ public class Main {
                 case 4 ->
                     consultarArea(academia);
                 case 5 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -100,13 +86,13 @@ public class Main {
 
     public static void consultarArea(Academia academia) {
         if (academia.getAreas().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre uma área primeiro!");
             return;
         }
-        limparTela();
-        Area area = buscarArea(academia, "consultar");
-        limparTela();
+        CRUD.limparTela();
+        Area area = CRUD.buscarArea(academia, "consultar");
+        CRUD.limparTela();
         while (true) {
             System.out.printf("o que você deseja consultar?\n1-atributos\n2-exercicios\n3-fechar\n");
             int caso = lerOpcaoMenu(1, 3);
@@ -116,7 +102,7 @@ public class Main {
                 case 2 ->
                     consultarExercicios(area);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -125,13 +111,13 @@ public class Main {
 
     public static void consultarExercicios(Area area) {
         if (area.getExercicios().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("essa área não contem exercícios");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         Exercicio exercicio = buscarExercicio(area);
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("nome: %s\nconjunto muscular alvo: %s\nnível de dificuldade: %s\nmusculos principais: ",
                 exercicio.getNome(), exercicio.getConjuntoMuscularAlvo(), exercicio.getNivelDedificuldade());
         ArrayList<String> musculosPrincipais = exercicio.getMusculosPrincipais();
@@ -153,7 +139,7 @@ public class Main {
         }
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static Exercicio buscarExercicio(Area area) {
@@ -173,7 +159,7 @@ public class Main {
     }
 
     public static void consultarAtributos(Area area) {
-        limparTela();
+        CRUD.limparTela();
         ArrayList<Exercicio> exercicios = area.getExercicios();
         System.out.printf("informações\nnome da área: %s\nexercícios: ", area.getNome());
         for (int i = 0; i < exercicios.size(); i++) {
@@ -185,18 +171,18 @@ public class Main {
         }
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static void consultarFuncionario(Academia academia) {
         if (academia.getFuncionarios().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre um funcionário primeiro!");
             return;
         }
-        limparTela();
-        Funcionario funcionario = buscarFuncionario(academia);
-        limparTela();
+        CRUD.limparTela();
+        Funcionario funcionario = CRUD.buscarFuncionario(academia);
+        CRUD.limparTela();
         while (true) {
             System.out.printf("o que você deseja consultar?\n1-consultar Atributos\n2-advertências\n3-fechar\n");
             int caso = lerOpcaoMenu(1, 3);
@@ -206,7 +192,7 @@ public class Main {
                 case 2 ->
                     consultarAdvertencia(funcionario);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -215,7 +201,7 @@ public class Main {
     }
 
     public static void consultarAtributos(Funcionario funcionario) {
-        limparTela();
+        CRUD.limparTela();
         System.out.printf(
                 "dados do funcionário\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n",
                 funcionario.getNome(), funcionario.getCpf(), funcionario.getRg(), funcionario.getEmail(),
@@ -227,18 +213,18 @@ public class Main {
         System.out.printf("area de atuação: %s\nsalário: %s", funcionario.getAreaAtuacao(), funcionario.getSalario());
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static void consultarAluno(Academia academia) {
         if (academia.getAlunos().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre um aluno primeiro!");
             return;
         }
-        limparTela();
-        Aluno aluno = buscarAluno(academia);
-        limparTela();
+        CRUD.limparTela();
+        Aluno aluno = CRUD.buscarAluno(academia);
+        CRUD.limparTela();
         while (true) {
             System.out.printf(
                     "o que você deseja fazer?\n1-consultar atributos\n2-consultar avaliações físicas\n3-consultar advertências\n4-fechar\n");
@@ -251,7 +237,7 @@ public class Main {
                 case 3 ->
                     consultarAdvertencia(aluno);
                 case 4 -> {
-                    limparTela();
+                   CRUD.limparTela();
                     return;
                 }
             }
@@ -260,34 +246,34 @@ public class Main {
 
     public static void consultarAdvertencia(Funcionario funcionario) {
         if (funcionario.getAdvertencias().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre uma advertência primeiro!");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         Advertencia advertencia = buscarAdvertencia(funcionario);
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("informações da advertência de %s\nmotivo: %s\npenalidade: %s\ndata: %s\n",
                 funcionario.getNome(), advertencia.getMotivo(), advertencia.getPenalidade(), advertencia.getData());
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static void consultarAdvertencia(Aluno aluno) {
         if(aluno.getAdvertencias().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre uma advertência primeiro!");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         Advertencia advertencia = buscarAdvertencia(aluno);
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("informações da advertência de %s\nmotivo: %s\npenalidade: %s\ndata: %s\n",
                 aluno.getNome(), advertencia.getMotivo(), advertencia.getPenalidade(), advertencia.getData());
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static Advertencia buscarAdvertencia(Aluno aluno) {
@@ -324,13 +310,13 @@ public class Main {
 
     public static void consultarAvaliacaoFisica(Aluno aluno) {
         if (aluno.getAvaliacoesFisicas().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre uma avaliação física primeiro!");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         AvaliacaoFisica avaliacao = buscarAvaliacaoFisica(aluno);
-        limparTela();
+        CRUD.limparTela();
         System.out.printf(
                 "avaliação física de %s\nbraço esquerdo: %s\nbraço direito: %s\nperna esquerda: %s\nperna direita: %s\ncintura: %s\nabdômen: %s\nbusto: %s\npescoço: %s\ngordura corporal: %s\nbanco de wells: %s\naltura: %s\npeso: %s\n",
                 aluno.getNome(), avaliacao.getBracoEsquerdo(), avaliacao.getBracoDireito(),
@@ -339,7 +325,7 @@ public class Main {
                 avaliacao.getBancoDeWells(), avaliacao.getAltura(), avaliacao.getPeso());
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static AvaliacaoFisica buscarAvaliacaoFisica(Aluno aluno) {
@@ -359,7 +345,7 @@ public class Main {
     }
 
     public static void consultarAtributos(Aluno aluno) {
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("dados do aluno\nnome:%s\nCPF:%s\nRG:%s\nemail:%s\ntelefone:%s\ndata de nascimento:%s\n",
                 aluno.getNome(), aluno.getCpf(), aluno.getRg(), aluno.getEmail(), aluno.getTelefone(),
                 aluno.getDataDeNascimento());
@@ -369,11 +355,11 @@ public class Main {
         System.out.printf("objetivo:%s\n", aluno.getObjetivo());
         LER.nextLine();
         LER.nextLine();
-        limparTela();
+        CRUD.limparTela();
     }
 
     public static void consultarAtributos(Academia academia) {
-        limparTela();
+        CRUD.limparTela();
         ArrayList<Aluno> alunos = academia.getAlunos();
         ArrayList<Funcionario> funcionarios = academia.getFuncionarios();
         ArrayList<Area> areas = academia.getAreas();
@@ -405,54 +391,29 @@ public class Main {
         }
         LER.nextLine();
         LER.nextLine();
-        limparTela();
-    }
-
-    public static void criarAcademia() {
-        System.out.printf("id único da academia:");
-        int id = LER.nextInt();
-        LER.nextLine();
-        String nome = lerCampoObrigatorio("Nome da academia:");
-        limparTela();
-        String endereco = lerCampoObrigatorio("endereço da academia:");
-        limparTela();
-        String horarioDeFuncionamento = lerCampoObrigatorio("horário de funcionamento da academia:");
-        limparTela();
-        academias.put(id, new Academia(nome, endereco, horarioDeFuncionamento, null, null, null));
-        System.out.printf("academia criada com sucesso:)\n");
-    }
-
-    public static String lerCampoObrigatorio(String mensagem) {
-        String valor = "";
-        do {
-            System.out.print(mensagem);
-            valor = LER.nextLine();
-            if (valor.isBlank()) {
-                System.out.println("Campo obrigatório! Digite novamente.");
-            }
-        } while (valor.isBlank());
-        return valor;
+        CRUD.limparTela();
     }
 
     public static void gerenciarAcademia() {
         if (academias.isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("Cadastre uma academia antes!");
             return;
         }
         int id = lerId("gerenciar");
+        Academia academia = academias.get(id);
         while (true) {
             System.out.printf(
                     "O que você deseja fazer na academia %s?\n1-cadastrar aluno\n2-cadastrar funcionario\n3-cadastrar Area da academia\n4-Gerenciar Aluno\n5-gerenciar funcionário\n6-gerenciar área da academia\n7-editar atributos\n8-fechar\n",
-                    academias.get(id).getNome());
+                    academia.getNome());
             int caso = lerOpcaoMenu(1, 8);
             switch (caso) {
                 case 1 ->
-                    cadastrarAluno(id);
+                    academia = CRUD.cadastrarAluno(academia);
                 case 2 ->
-                    cadastrarFuncionario(id);
+                    academia = CRUD.cadastrarFuncionario(academia);
                 case 3 ->
-                    cadastrarArea(id);
+                    academia = CRUD.cadastrarArea(academia);
                 case 4 ->
                     gerenciarAluno(id);
                 case 5 ->
@@ -460,9 +421,9 @@ public class Main {
                 case 6 ->
                     gerenciarArea(id);
                 case 7 ->
-                    editarAtributos(academias.get(id));
+                    academia = CRUD.editarAtributos(academia);
                 case 8 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -472,25 +433,25 @@ public class Main {
 
     public static void gerenciarArea(int id) {
         if (academias.get(id).getAreas().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre uma área primeiro!");
             return;
         }
-        limparTela();
-        Area area = buscarArea(academias.get(id), "gerenciar");
-        limparTela();
+        CRUD.limparTela();
+        Area area = CRUD.buscarArea(academias.get(id), "gerenciar");
+        CRUD.limparTela();
         while (true) {
             System.out.printf("o que você deseja gerenciar na área %s\n1-exercícios\n2-gerenciar atributos\n3-fechar\n",
                     area.getNome());
             int caso = lerOpcaoMenu(1, 3);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
                     gerenciarExercicios(area);
                 case 2 ->
-                    editarAtributos(area);
+                    area = CRUD.editarAtributos(area);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -500,11 +461,11 @@ public class Main {
 
     public static void gerenciarExercicio(Area area) {
         if (area.getExercicios().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("essa área não contem exercícios");
             return;
         }
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("qual exercício você deseja gerenciar?:");
         LER.nextLine();
         String nome = LER.nextLine();
@@ -516,20 +477,20 @@ public class Main {
             return;
         }
         while (true) {
-            limparTela();
+            CRUD.limparTela();
             System.out.printf(
                     "o que deseja fazer?\n1-gerenciar musculos principais\n2-gerenciar musculos secundários\n3-gerenciar atributos\n4-fechar\n");
             int caso = lerOpcaoMenu(1, 4);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
                     gerenciarMusculosPrincipais(exercicio);
                 case 2 ->
                     gerenciarMusculosSecundarios(exercicio);
                 case 3 ->
-                    editarAtributos(exercicio);
+                    exercicio = CRUD.editarAtributos(exercicio);
                 case 4 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -539,16 +500,16 @@ public class Main {
 
     public static void gerenciarMusculosSecundarios(Exercicio exercicio) {
         while (true) {
-            limparTela();
+            CRUD.limparTela();
             System.out.printf("o que você deseja fazer?\n1-adicionar músculo\n2-remover músculo\n3-fechar\n");
             int caso = lerOpcaoMenu(1, 3);
             switch (caso) {
                 case 1 ->
-                    adicionarMusculoSecundario(exercicio);
+                    exercicio = CRUD.adicionarMusculoSecundario(exercicio);
                 case 2 ->
-                    removerMusculoPrincipal(exercicio);
+                    exercicio = CRUD.removerMusculoPrincipal(exercicio);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -557,79 +518,31 @@ public class Main {
     }
 
     public static void removerMusculoSecundario(Exercicio exercicio) {
-        limparTela();
+        CRUD.limparTela();
         System.out.printf("qual músculo deseja remover?:");
         LER.nextLine();
         exercicio.removeMusculoSecundario(LER.nextLine());
-        limparTela();
+        CRUD.limparTela();
         System.out.println("Musculo removido com sucesso :)");
-    }
-
-    public static void adicionarMusculoSecundario(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual é o nome do músculo?:");
-        LER.nextLine();
-        exercicio.addMusculoSecundario(LER.nextLine());
-        limparTela();
-        System.out.println("Musculo adicionado com sucesso :)");
     }
 
     public static void gerenciarMusculosPrincipais(Exercicio exercicio) {
         while (true) {
             System.out.printf("o que você deseja fazer?\n1-adicionar músculo\n2-remover músculo\n3-fechar\n");
             int caso = lerOpcaoMenu(1, 3);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
-                    adicionarMusculoPrincipal(exercicio);
+                    exercicio = CRUD.adicionarMusculoPrincipal(exercicio);
                 case 2 ->
-                    removerMusculoPrincipal(exercicio);
+                    exercicio = CRUD.removerMusculoPrincipal(exercicio);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
         }
 
-    }
-
-    public static void removerMusculoPrincipal(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual músculo deseja remover?:");
-        LER.nextLine();
-        exercicio.removeMusculoPrincipal(LER.nextLine());
-        limparTela();
-        System.out.println("Musculo removido com sucesso :)");
-    }
-
-    public static void adicionarMusculoPrincipal(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual é o nome do músculo?:");
-        LER.nextLine();
-        exercicio.addMusculoPrincipal(LER.nextLine());
-        limparTela();
-        System.out.println("Musculo adicionado com sucesso :)");
-    }
-
-    public static void alterarNivelDeDificuldade(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual o novo nível de dificuldade?:");
-        LER.nextLine();
-        exercicio.setNivelDedificuldade(LER.nextLine());
-    }
-
-    public static void alterarConjuntoMuscularAlvo(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual o novo conjunto muscular alvo?:");
-        LER.nextLine();
-        exercicio.setConjuntoMuscularAlvo(LER.nextLine());
-    }
-
-    public static void alterarNome(Exercicio exercicio) {
-        limparTela();
-        System.out.printf("qual o novo nome do exercício?:");
-        LER.nextLine();
-        exercicio.setNome(LER.nextLine());
     }
 
     public static void gerenciarExercicios(Area area) {
@@ -637,109 +550,47 @@ public class Main {
             System.out.printf(
                     "o que deseja fazer?\n1-adicionar exercício\n2-remover exercício\n3-gerenciar exercício\n4-fechar\n");
             int caso = lerOpcaoMenu(1, 7);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
-                    adicionarExercicio(area);
+                    area = CRUD.adicionarExercicio(area);
                 case 2 ->
-                    removerExercicio(area);
+                    area = CRUD.removerExercicio(area);
                 case 3 ->
                     gerenciarExercicio(area);
                 case 4 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
         }
-    }
-
-    public static void removerExercicio(Area area) {
-        limparTela();
-        System.out.printf("qual exercício deseja remover?:");
-        String nome = LER.nextLine();
-        area.removeExercicios(area.procurarExercicioPorNome(nome));
-    }
-
-    public static void adicionarExercicio(Area area) {
-        limparTela();
-        System.out.printf("nome do exercício:");
-        LER.nextLine();
-        String nome = LER.nextLine();
-        limparTela();
-        System.out.printf("conjunto muscular alvo:");
-        String conjuntoMuscularAlvo = LER.nextLine();
-        limparTela();
-        System.out.printf("nível de dificuldade do exercício:");
-        String nivelDeDificuldade = LER.nextLine();
-        limparTela();
-        area.addExercicio(new Exercicio(nome, conjuntoMuscularAlvo, null, null, nivelDeDificuldade));
-        System.out.println("exercício adicionado com sucesso :)");
-    }
-
-    public static void gerenciarNome(Area area) {
-        limparTela();
-        System.out.printf("novo nome:");
-        LER.nextLine();
-        area.setNome(LER.nextLine());
-    }
-
-    public static Area buscarArea(Academia academia, String oq) {
-        System.out.printf("qual área você deseja %s:", oq);
-        LER.nextLine();
-        String nome;
-        boolean primeiraVez = true;
-        do {
-            if (primeiraVez) {
-                primeiraVez = false;
-            } else {
-                System.out.printf("área não existe, tente novamente:");
-            }
-            nome = LER.nextLine();
-        } while (academia.buscarAreaPorNome(nome) == null);
-        return academia.buscarAreaPorNome(nome);
     }
 
     public static void gerenciarFuncionario(int id) {
         if (academias.get(id).getFuncionarios().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre um funcionário antes!");
             return;
         }
-        limparTela();
-        Funcionario funcionario = buscarFuncionario(academias.get(id));
-        limparTela();
+        CRUD.limparTela();
+        Funcionario funcionario = CRUD.buscarFuncionario(academias.get(id));
+        CRUD.limparTela();
         while (true) {
             System.out.printf("O que você deseja gerenciar?\n1-advertências\n2-gerenciar atributos\n3-fechar\n");
             int caso = lerOpcaoMenu(1, 3);
-            limparTela();
+            CRUD.limparTela();
             switch (caso) {
                 case 1 ->
                     gerenciarAdvertencias(funcionario);
                 case 2 ->
-                    editarAtributos(funcionario);
+                    funcionario = CRUD.editarAtributos(funcionario);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
         }
 
-    }
-
-    public static Funcionario buscarFuncionario(Academia academia) {
-        System.out.printf("qual o nome do funcionário?:");
-        LER.nextLine();
-        String nome;
-        boolean primeiraVez = true;
-        do {
-            if (primeiraVez) {
-                primeiraVez = false;
-            } else {
-                System.out.printf("funcionário não existe, tente novamente:");
-            }
-            nome = LER.nextLine();
-        } while (academia.buscarFuncionarioPorNome(nome) == null);
-        return academia.buscarFuncionarioPorNome(nome);
     }
 
     public static int lerId(String oq) {
@@ -758,17 +609,16 @@ public class Main {
     }
 
     public static void gerenciarAluno(int id) {
-
         if (academias.get(id).getAlunos().isEmpty()) {
-            limparTela();
+            CRUD.limparTela();
             System.out.println("cadastre um aluno primeiro!");
             return;
         }
-        limparTela();
-        Aluno aluno = buscarAluno(academias.get(id));
-        limparTela();
+        CRUD.limparTela();
+        Aluno aluno = CRUD.buscarAluno(academias.get(id));
+        CRUD.limparTela();
         while (true) {
-            limparTela();
+            CRUD.limparTela();
             System.out.printf(
                     "O que você deseja gerenciar?\n1-avaliações físicas\n2-advertências\n3-editar atributos\n4-fechar\n");
             int caso = lerOpcaoMenu(1, 4);
@@ -778,30 +628,14 @@ public class Main {
                 case 2 ->
                     gerenciarAdvertencias(aluno);
                 case 3 ->
-                    editarAtributos(aluno);
+                    aluno = CRUD.editarAtributos(aluno);
                 case 4 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
         }
 
-    }
-
-    public static Aluno buscarAluno(Academia academia) {
-        System.out.printf("qual o nome do aluno?:");
-        LER.nextLine();
-        String nome;
-        boolean primeiraVez = true;
-        do {
-            if (primeiraVez) {
-                primeiraVez = false;
-            } else {
-                System.out.printf("aluno não existe, tente novamente:");
-            }
-            nome = LER.nextLine();
-        } while (academia.buscarAlunoPorNome(nome) == null);
-        return academia.buscarAlunoPorNome(nome);
     }
 
     public static void gerenciarAvaliacoesFisicas(Aluno aluno) {
@@ -811,12 +645,12 @@ public class Main {
             int caso = lerOpcaoMenu(1, 4);
             switch (caso) {
                 case 1 ->
-                    adicionarAvaliacaoFisica(aluno);
+                    aluno = CRUD.adicionarAvaliacaoFisica(aluno);
                 case 2 ->
-                    removerAvaliacaoFisica(aluno);
+                    aluno = CRUD.removerAvaliacaoFisica(aluno);
                 // case 3 -> editarAdvertencia(aluno);
                 case 4 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -824,72 +658,20 @@ public class Main {
 
     }
 
-    public static void adicionarAvaliacaoFisica(Aluno aluno) {
-        limparTela();
-        System.out.printf("id da avaliação física:");
-        int id = LER.nextInt();
-        limparTela();
-        System.out.printf("braço esquerdo do aluno(cm):");
-        LER.nextLine();
-        String bracoEsquerdo = LER.nextLine();
-        limparTela();
-        System.out.printf("braço direito do aluno(cm):");
-        String bracoDireito = LER.nextLine();
-        limparTela();
-        System.out.printf("perna esquerda do aluno(cm):");
-        String pernaEsquerda = LER.nextLine();
-        limparTela();
-        System.out.printf("perna direita do aluno(cm):");
-        String pernaDireito = LER.nextLine();
-        limparTela();
-        System.out.printf("cintura do aluno(cm):");
-        String cintura = LER.nextLine();
-        limparTela();
-        System.out.printf("abdomen do aluno(Cm):");
-        String abdomen = LER.nextLine();
-        limparTela();
-        System.out.printf("busto do aluno(cm):");
-        String busto = LER.nextLine();
-        limparTela();
-        System.out.printf("pescoço do aluno(cm):");
-        String pescoco = LER.nextLine();
-        limparTela();
-        System.out.printf("gordura gorporal(%%):");
-        String gorduraCorporal = LER.nextLine();
-        limparTela();
-        System.out.printf("banco de wells(cm):");
-        String bancoDeWells = LER.nextLine();
-        limparTela();
-        System.out.printf("altura do aluno(cm):");
-        String altura = LER.nextLine();
-        limparTela();
-        System.out.printf("peso do aluno(kg):");
-        String peso = LER.nextLine();
-        limparTela();
-        aluno.addAvaliacaoFisica(new AvaliacaoFisica(bracoEsquerdo, bracoDireito, pernaEsquerda, pernaDireito, cintura,
-                abdomen, busto, pescoco, gorduraCorporal, bancoDeWells, altura, peso, id));
-        System.out.println("avaliação física adicionada com sucesso :)");
-    }
-
-    public static void removerAvaliacaoFisica(Aluno aluno) {
-        System.out.printf("qual avaliação física você deseja remover?(id):");
-        aluno.removeAvaliacaoFisica(LER.nextInt());
-    }
-
     public static void gerenciarAdvertencias(Funcionario funcionario) {
         while (true) {
-            limparTela();
+            CRUD.limparTela();
             System.out.printf(
                     "O que você deseja fazer?\n1-adicionar advertências\n2-remover advertências\n3-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
-                    adicionarAdvertencia(funcionario);
+                    funcionario = CRUD.adicionarAdvertencia(funcionario);
                 case 2 ->
-                    removerAdvertencia(funcionario);
+                    funcionario = CRUD.removerAdvertencia(funcionario);
                 // case 3 -> editarAdvertencia(aluno);
                 case 3 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
@@ -897,345 +679,24 @@ public class Main {
 
     }
 
-    public static void removerAdvertencia(Funcionario funcionario) {
-        System.out.printf("Qual advertência você deseja remover?(id):");
-        funcionario.removeAdvertencias(LER.nextInt());
-    }
-
-    public static void adicionarAdvertencia(Funcionario funcionario) {
-        limparTela();
-        System.out.printf("id da advertência:");
-        int id = LER.nextInt();
-        limparTela();
-        System.out.printf("motivo da advertência:");
-        LER.nextLine();
-        String motivo = LER.nextLine();
-        limparTela();
-        System.out.printf("penalidade da advertência:");
-        String penalidade = LER.nextLine();
-        limparTela();
-        System.out.printf("data da advertência:");
-        String data = LER.nextLine();
-        limparTela();
-        funcionario.addAdvertencia(new Advertencia(id, motivo, penalidade, data));
-        System.out.println("advertência adicionada com sucesso :(");
-    }
-
     public static void gerenciarAdvertencias(Aluno aluno) {
         while (true) {
-            limparTela();
+            CRUD.limparTela();
             System.out.printf(
                     "O que você deseja fazer?\n1-adicionar advertências\n2-remover advertências\n3-editar advertência\n4-fechar\n");
             int caso = LER.nextInt();
             switch (caso) {
                 case 1 ->
-                    adicionarAdvertencia(aluno);
+                    aluno = CRUD.adicionarAdvertencia(aluno);
                 case 2 ->
-                    removerAdvertencia(aluno);
+                    aluno = CRUD.removerAdvertencia(aluno);
                 // case 3 -> editarAdvertencia(aluno);
                 case 4 -> {
-                    limparTela();
+                    CRUD.limparTela();
                     return;
                 }
             }
         }
 
-    }
-
-    public static void removerAdvertencia(Aluno aluno) {
-        System.out.printf("Qual advertência você deseja remover?(id):");
-        aluno.removeAdvertencias(LER.nextInt());
-    }
-
-    public static void adicionarAdvertencia(Aluno aluno) {
-        limparTela();
-        System.out.printf("id da advertência:");
-        int id = LER.nextInt();
-        limparTela();
-        System.out.printf("motivo da advertência:");
-        LER.nextLine();
-        String motivo = LER.nextLine();
-        limparTela();
-        System.out.printf("penalidade da advertência:");
-        String penalidade = LER.nextLine();
-        limparTela();
-        System.out.printf("data da advertência:");
-        String data = LER.nextLine();
-        limparTela();
-        aluno.addAdvertencia(new Advertencia(id, motivo, penalidade, data));
-        System.out.println("advertência adicionada com sucesso :(");
-    }
-
-    public static void cadastrarArea(int id) {
-        limparTela();
-        System.out.printf("qual o nome da área?:");
-        LER.nextLine();
-        String nome = LER.nextLine();
-        limparTela();
-        academias.get(id).addArea(new Area(nome, null));
-        System.out.println("área adicionada com sucesso:)");
-    }
-
-    public static void cadastrarFuncionario(int id) {
-        limparTela();
-        System.out.print("nome do funcionário:");
-        LER.nextLine();
-        String nome = LER.nextLine();
-        limparTela();
-        System.out.printf("CPF do funcionário:");
-        String cpf = LER.nextLine();
-        limparTela();
-        System.out.printf("RG do funcionário:");
-        String rg = LER.nextLine();
-        limparTela();
-        System.out.printf("email do funcionário:");
-        String email = LER.nextLine();
-        limparTela();
-        System.out.printf("telefone do funcionário:");
-        String telefone = LER.nextLine();
-        limparTela();
-        System.out.printf("data de nascimento do funcionário:");
-        String dataDeNascimento = LER.nextLine();
-        limparTela();
-        String necessidadeEspecial = verificarNecessidadeEspecial("funcionário");
-        limparTela();
-        System.out.printf("area de atuação do funcionário:");
-        String areaAtuacao = LER.nextLine();
-        limparTela();
-        System.out.printf("salário do funcionário:");
-        String salario = LER.nextLine();
-        limparTela();
-        academias.get(id).addFuncionario(new Funcionario(nome, cpf, rg, email, telefone, dataDeNascimento, areaAtuacao,
-                salario, necessidadeEspecial, null));
-        System.out.println("funcionário adicionado com sucesso :)");
-    }
-
-    public static void cadastrarAluno(int id) {
-        limparTela();
-        System.out.print("nome do aluno:");
-        LER.nextLine();
-        String nome = LER.nextLine();
-        limparTela();
-        System.out.printf("CPF do aluno:");
-        String cpf = LER.nextLine();
-        limparTela();
-        System.out.printf("RG do aluno:");
-        String rg = LER.nextLine();
-        limparTela();
-        System.out.printf("email do aluno:");
-        String email = LER.nextLine();
-        limparTela();
-        System.out.printf("telefone do aluno:");
-        String telefone = LER.nextLine();
-        limparTela();
-        System.out.printf("data de nascimento do aluno:");
-        String dataDeNascimento = LER.nextLine();
-        limparTela();
-        String necessidadeEspecial = verificarNecessidadeEspecial("aluno");
-        limparTela();
-        System.out.printf("objetivo do aluno:");
-        String objetivo = LER.nextLine();
-        limparTela();
-        academias.get(id)
-                .addAluno(new Aluno(nome, cpf, rg, email, telefone, dataDeNascimento, objetivo, necessidadeEspecial));
-        System.out.println("aluno adicionado com sucesso :)");
-    }
-
-    public static String verificarNecessidadeEspecial(String pessoa) {
-        boolean deuCerto = false;
-        boolean temNecessidade = true;
-        boolean primeiraVez = true;// limpar o buffer do teclado
-        System.out.printf("o %s tem alguma necessidade especial?(true ou false):", pessoa);
-        while (!deuCerto) {
-            deuCerto = true;
-            if (primeiraVez) {
-                primeiraVez = false;
-            } else {
-                LER.nextLine();
-            }
-            try {
-                temNecessidade = LER.nextBoolean();
-            } catch (Exception e) {
-                System.out.println("TRUE OU FALSE(minusculo)");
-                deuCerto = false;
-            }
-        }
-        String necessidadeEspecial;
-        if (temNecessidade) {
-            System.out.printf("necessidade especial do %:", pessoa);
-            LER.nextLine();
-            necessidadeEspecial = LER.nextLine();
-        } else {
-            necessidadeEspecial = null;
-            LER.nextLine();
-        }
-        return necessidadeEspecial;
-    }
-
-    public static void editarAtributos(Academia academia) {
-        limparTela();
-        System.out.println("Editar atributos da academia:");
-        System.out.printf("Nome atual: %s\nNovo nome (ou Enter para manter): ", academia.getNome());
-        LER.nextLine();
-        String nome = LER.nextLine();
-        if (!nome.isEmpty()) {
-            academia.setNome(nome);
-        }
-        System.out.printf("Endereço atual: %s\nNovo endereço (ou Enter para manter): ", academia.getEndereco());
-        String endereco = LER.nextLine();
-        if (!endereco.isEmpty()) {
-            academia.setEndereco(endereco);
-        }
-        System.out.printf("Horário atual: %s\nNovo horário (ou Enter para manter): ", academia.getHorarioDeFuncionamento());
-        String horario = LER.nextLine();
-        if (!horario.isEmpty()) {
-            academia.setHorarioDeFuncionamento(horario);
-        }
-        limparTela();
-        System.out.println("Atributos atualizados!");
-    }
-
-    public static void editarAtributos(Aluno aluno) {
-        limparTela();
-        System.out.println("Editar atributos do aluno:");
-        System.out.printf("Nome atual: %s\nNovo nome (ou Enter para manter): ", aluno.getNome());
-        LER.nextLine();
-        String nome = LER.nextLine();
-        if (!nome.isEmpty()) {
-            aluno.setNome(nome);
-        }
-        System.out.printf("CPF atual: %s\nNovo CPF (ou Enter para manter): ", aluno.getCpf());
-        String cpf = LER.nextLine();
-        if (!cpf.isEmpty()) {
-            aluno.setCpf(cpf);
-        }
-        System.out.printf("RG atual: %s\nNovo RG (ou Enter para manter): ", aluno.getRg());
-        String rg = LER.nextLine();
-        if (!rg.isEmpty()) {
-            aluno.setRg(rg);
-        }
-        System.out.printf("Email atual: %s\nNovo email (ou Enter para manter): ", aluno.getEmail());
-        String email = LER.nextLine();
-        if (!email.isEmpty()) {
-            aluno.setEmail(email);
-        }
-        System.out.printf("Telefone atual: %s\nNovo telefone (ou Enter para manter): ", aluno.getTelefone());
-        String telefone = LER.nextLine();
-        if (!telefone.isEmpty()) {
-            aluno.setTelefone(telefone);
-        }
-        System.out.printf("Data de nascimento atual: %s\nNova data (ou Enter para manter): ", aluno.getDataDeNascimento());
-        String data = LER.nextLine();
-        if (!data.isEmpty()) {
-            aluno.setDataDeNascimento(data);
-        }
-        System.out.printf("Necessidade especial atual: %s\nNova necessidade (ou Enter para manter): ", aluno.getNecessidadeEspecial());
-        String necessidade = LER.nextLine();
-        if (!necessidade.isEmpty()) {
-            aluno.setNecessidadeEspecial(necessidade);
-        }
-        System.out.printf("Objetivo atual: %s\nNovo objetivo (ou Enter para manter): ", aluno.getObjetivo());
-        String objetivo = LER.nextLine();
-        if (!objetivo.isEmpty()) {
-            aluno.setObjetivo(objetivo);
-        }
-        limparTela();
-        System.out.println("Atributos atualizados!");
-    }
-
-    public static void editarAtributos(Funcionario funcionario) {
-        limparTela();
-        System.out.println("Editar atributos do funcionário:");
-        System.out.printf("Nome atual: %s\nNovo nome (ou Enter para manter): ", funcionario.getNome());
-        LER.nextLine();
-        String nome = LER.nextLine();
-        if (!nome.isEmpty()) {
-            funcionario.setNome(nome);
-        }
-        System.out.printf("CPF atual: %s\nNovo CPF (ou Enter para manter): ", funcionario.getCpf());
-        String cpf = LER.nextLine();
-        if (!cpf.isEmpty()) {
-            funcionario.setCpf(cpf);
-        }
-        System.out.printf("RG atual: %s\nNovo RG (ou Enter para manter): ", funcionario.getRg());
-        String rg = LER.nextLine();
-        if (!rg.isEmpty()) {
-            funcionario.setRg(rg);
-        }
-        System.out.printf("Email atual: %s\nNovo email (ou Enter para manter): ", funcionario.getEmail());
-        String email = LER.nextLine();
-        if (!email.isEmpty()) {
-            funcionario.setEmail(email);
-        }
-        System.out.printf("Telefone atual: %s\nNovo telefone (ou Enter para manter): ", funcionario.getTelefone());
-        String telefone = LER.nextLine();
-        if (!telefone.isEmpty()) {
-            funcionario.setTelefone(telefone);
-        }
-        System.out.printf("Data de nascimento atual: %s\nNova data (ou Enter para manter): ", funcionario.getDataDeNascimento());
-        String data = LER.nextLine();
-        if (!data.isEmpty()) {
-            funcionario.setDataDeNascimento(data);
-        }
-        System.out.printf("Necessidade especial atual: %s\nNova necessidade (ou Enter para manter): ", funcionario.getNecessidadeEspecial());
-        String necessidade = LER.nextLine();
-        if (!necessidade.isEmpty()) {
-            funcionario.setNecessidadeEspecial(necessidade);
-        }
-        System.out.printf("Área de atuação atual: %s\nNova área (ou Enter para manter): ", funcionario.getAreaAtuacao());
-        String area = LER.nextLine();
-        if (!area.isEmpty()) {
-            funcionario.setAreaAtuacao(area);
-        }
-        System.out.printf("Salário atual: %s\nNovo salário (ou Enter para manter): ", funcionario.getSalario());
-        String salario = LER.nextLine();
-        if (!salario.isEmpty()) {
-            funcionario.setSalario(salario);
-        }
-        limparTela();
-        System.out.println("Atributos atualizados!");
-    }
-
-    public static void editarAtributos(Area area) {
-        limparTela();
-        System.out.println("Editar atributos da área:");
-        System.out.printf("Nome atual: %s\nNovo nome (ou Enter para manter): ", area.getNome());
-        LER.nextLine();
-        String nome = LER.nextLine();
-        if (!nome.isEmpty()) {
-            area.setNome(nome);
-        }
-        limparTela();
-        System.out.println("Atributos atualizados!");
-    }
-
-    public static void editarAtributos(Exercicio exercicio) {
-        limparTela();
-        System.out.println("Editar atributos do exercício:");
-        System.out.printf("Nome atual: %s\nNovo nome (ou Enter para manter): ", exercicio.getNome());
-        LER.nextLine();
-        String nome = LER.nextLine();
-        if (!nome.isEmpty()) {
-            exercicio.setNome(nome);
-        }
-        System.out.printf("Conjunto muscular alvo atual: %s\nNovo conjunto (ou Enter para manter): ", exercicio.getConjuntoMuscularAlvo());
-        String conjunto = LER.nextLine();
-        if (!conjunto.isEmpty()) {
-            exercicio.setConjuntoMuscularAlvo(conjunto);
-        }
-        System.out.printf("Nível de dificuldade atual: %s\nNovo nível (ou Enter para manter): ", exercicio.getNivelDedificuldade());
-        String nivel = LER.nextLine();
-        if (!nivel.isEmpty()) {
-            exercicio.setNivelDedificuldade(nivel);
-        }
-        limparTela();
-        System.out.println("Atributos atualizados!");
-    }
-
-    public static void limparTela() {
-        for (int i = 0; i < 40; ++i) {
-            System.out.println();
-        }
-        System.out.print("\033\143");
     }
 }
